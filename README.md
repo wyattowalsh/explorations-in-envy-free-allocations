@@ -22,7 +22,7 @@
 | ------------- | -----|
 | generate_data.ipynb    | Juypter Python Notebook for data generation|
 | visualize.ipynb   |   Jupyter Python Notebook for visualization|
-| ieor-169-projecet.yml | Environment file |
+| ieor-169-project.yml | Environment file |
 | .gitignore | File instructing which directories or files Git should ignore |
 
 ## Review of Terminal Usage
