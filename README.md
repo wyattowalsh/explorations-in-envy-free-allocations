@@ -60,9 +60,9 @@ Virtual environments enable programming projects to exist with independent depen
 
 Anaconda seems like a solid fit for this type of project since it allows language agnostic environments to be created thus allowing for both Python and R packages to be used. For this project, I have created a custom virtual environment filled with the majority of pertinent packages for both Python and R. The environment also contains the means for executing these different languages in a jupyter notebook along with jupyter notebook extensions. 
 
-In order to share this environment, I have included a file: `ieor-180-project.yml` in the repository. Once you have successfully cloned the repository, then you can clone this file as a new environment on your machine with the same parameters as the one set up already. This assumes that you already have some sort of distribution of Anaconda installed. I recommend that if you do have it installed running `conda update --all` before cloning the environment and if you do not have it installed make sure to check out Miniconda (another less bloaty, yet fully functional conda). 
+In order to share this environment, I have included a file: `ieor-169-project.yml` in the repository. Once you have successfully cloned the repository, then you can clone this file as a new environment on your machine with the same parameters as the one set up already. This assumes that you already have some sort of distribution of Anaconda installed. I recommend that if you do have it installed running `conda update --all` before cloning the environment and if you do not have it installed make sure to check out Miniconda (another less bloaty, yet fully functional conda). 
 
-To clone the environment from .yml file use: `conda env create -f ieor-180-project.yml` followed by `conda activate ieor-180-project` to enter the virtual environment. 
+To clone the environment from .yml file use: `conda env create -f ieor-169-project.yml` followed by `conda activate ieor-169-project` to enter the virtual environment. 
 
 Warning: there may be potential installation errors. I have tried my best to ensure cross-compatability, but until it's up and running I won't guarantee a bug-free experience.
 
