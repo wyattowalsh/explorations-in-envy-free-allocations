@@ -11,5 +11,3 @@ data p1_simple.dat;
 solve;
 
 display _varname, _var;
-
-reset;
