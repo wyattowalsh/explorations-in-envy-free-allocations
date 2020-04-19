@@ -1,45 +1,35 @@
 ##SETS##
-set person;
-set object;
+set people;
+set objects;
 
 
 ### PARAMETERS ###
-param Values {person, object};
+param VALUE {people, objects};
 
 
 ### VARIABLES ###
-var X {person, object} binary;
-var Y <= 1, >= 0;
-var Envy{person} >= 0;
-var pValue{person} <= 1, >= 0;
+var X {people, objects} binary;
+var Y;
+var Envy{people} <= 1;
+var personVALUE{people};
+var sign{people} binary;
+
 ### OBJECTIVE FUNCTION ###
 minimize MaxEnvy: Y;
 
-subject to
 ### ASSIGNED TO ONE PERSON ###
-assignment {o in object}:
-	sum{p in person} X[p,o] = 1;
+subject to assignment {object in objects}:
+	sum{person in people} (X[person,object]) = 1;
 
-getValue {p in person}:
-	pValue[p] = sum{o in object} (X[p,o]*Values[p,o]);
+subject to	getValue {person in people}:
+	personVALUE[person] =
+	sum{object in objects} (X[person,object]*VALUE[person,object]);
 
-defEnvy {p in person}:
- 	Envy[p] = (1-pValue[p])-pValue[p];
+subject to	defEnvy {person in people}:
+ 	Envy[person] = ((1-personVALUE[person])-personVALUE[person]);
+ 	
+subject to	maxEachEnvy {person in people}:
+	Y >= Envy[person];
 
-maxEachEnvy {p in person}:
-	Y >= Envy[p];
-
-
-
-
-### DEFINE THE ENVY'S ###
-envy_define {p in person}:
-	Envy[p] =
-		(1-(sum{o in object} (X[p,o] * Values[p,o]))) -
-		 		(sum{o in object} (X[p,o] * Values[p,o]));
-
-
-
-### MAX OF ENVY'S ###
-max_envy {p in person}:
-	Y >= Envy[p];
+# subject to determineSign {person in people}:
+# 	sign[person] >= ((1-personVALUE[person])-personVALUE[person])

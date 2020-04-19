@@ -1,9 +1,9 @@
 data; 
-set person := 1 2 ;
-set object := 1 2 ;
+set people := 1 2 ;
+set objects := 1 2 ;
 
 
-param Values :=
+param VALUE :=
 	1 1 0.80  1 2 0.20
 	2 1 0.75  2 2 0.25
 	;
