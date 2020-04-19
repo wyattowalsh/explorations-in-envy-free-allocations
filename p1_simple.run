@@ -1,0 +1,15 @@
+# run file for p1_simple
+
+reset;
+
+option log_file 'p1_simple.txt';
+
+model p1_simple.mod;
+
+data p1_simple.dat;
+
+solve;
+
+display _varname, _var;
+
+reset;
