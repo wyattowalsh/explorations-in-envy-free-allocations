@@ -2,8 +2,11 @@ data;
 set people := 1 2 ;
 set objects := 1 2 ;
 
+param numObjects = 2;
 
-param VALUE :=
+param numPeople := 2; 
+
+param v :=
 	1 1 0.80  1 2 0.20
 	2 1 0.75  2 2 0.25
 	;

@@ -1,0 +1,165 @@
+option minos_auxfiles RF;
+option mpsfile_numwidth 12;
+option nl_comments 0;
+option nl_permute 3;
+option no_hexfp 0;
+option objective_precision 10;
+option old_complementarity_slack 0;
+option old_param_eq 0;
+option omit_zero_cols 0;
+option omit_zero_rows 0;
+option outarg_warn 1;
+option outopt '';
+option output_precision 0;
+option pl_bigM 1e6;
+option pl_linearize 1;
+option presolve 10;
+option presolve_assoc 7;
+option presolve_debug 0;
+option presolve_eps 0;
+option presolve_epsmax 1e-5;
+option presolve_fixeps 0;
+option presolve_fixepsmax 1e-5;
+option presolve_inteps 1e-6;
+option presolve_intepsmax 1e-5;
+option presolve_logfile '';
+option presolve_warnings 5;
+option print_precision 0;
+option print_round '';
+option print_separator ' ';
+option project_fixed_vars 1;
+option prompt1 'ampl: ';
+option prompt2 'ampl? ';
+option randparam_warn 1;
+option randseed 1;
+option randvar_constwarn 5;
+option randvar_warn 5;
+option rel_boundtol 0;
+option relax_integrality 0;
+option reset_initial_guesses 0;
+option send_statuses 1;
+option send_suffixes 3;
+option sense_table '\
+-1	minimize\
+1	maximize\
+';
+option shell_env_file '';
+option shell_exitcode_max 65536;
+option shell_exitignore 0;
+option show_boundtol 1;
+option show_presolve_messages 1;
+option show_stats 1;
+option show_write_files 0;
+option single_step 0;
+option single_step_cmdno 0;
+option solution_precision '';
+option solution_round '';
+option solve_exitcode_max 0;
+option solve_result_table '\
+0	solved\
+100	solved?\
+200	infeasible\
+300	unbounded\
+400	limit\
+500	failure\
+';
+option solver '/Users/chrislandgrebe/Desktop/amplide.macosx64/cplex';
+option solver_msg 1;
+option spec_insert 'summary frequency 50\
+log frequency 999999';
+option sstatus_table '\
+0	none	no status assigned\
+1	bas	basic\
+2	sup	superbasic\
+3	low	nonbasic <= (normally =) lower bound\
+4	upp	nonbasic >= (normally =) upper bound\
+5	equ	nonbasic at equal lower and upper bounds\
+6	btw	nonbasic between bounds\
+';
+option stagewarn 1;
+option stdin_offset 0;
+option strict_ineq_warn 1;
+option substout 0;
+option table_debug '';
+option table_debug_template '%.dbtab';
+option table_errbreak 0;
+option times 0;
+option var_bounds 1;
+option version 'AMPL Version 20190911 (Darwin 10.8.0 x86_64)\
+Demo license with maintenance expiring 20191227.\
+Using license file "/Users/chrislandgrebe/Desktop/amplide.macosx64/ampl.lic".\
+';
+ampl: include /Users/chrislandgrebe/Desktop/PROJECT/ieor-169-project/p1_simple.run;
+# run file for p1_simple
+
+reset;
+
+option log_file 'p1_simple.txt';
+
+model p1_simple.mod;
+##SETS##
+set people;
+set objects;
+
+
+### PARAMETERS ###
+param VALUE {people, objects};
+
+
+### VARIABLES ###
+var X {people, objects} binary;
+var Y;
+var Envy{people} <= 1;
+var personVALUE{people};
+var sign{people} binary;
+
+### OBJECTIVE FUNCTION ###
+minimize MaxEnvy: Y;
+
+### ASSIGNED TO ONE PERSON ###
+subject to assignment {object in objects}:
+	sum{person in people} (X[person,object]) = 1;
+
+subject to	getValue {person in people}:
+	personVALUE[person] =
+	sum{object in objects} (X[person,object]*VALUE[person,object]);
+
+subject to	defEnvy {person in people}:
+ 	Envy[person] = ((1-personVALUE[person])-personVALUE[person]);
+ 	
+subject to	maxEachEnvy {person in people}:
+	Y >= Envy[person];
+
+# subject to determineSign {person in people}:
+# 	sign[person] >= ((1-personVALUE[person])-personVALUE[person])
+
+data p1_simple.dat;
+
+solve;
+
+9 variables:
+	4 binary variables
+	5 linear variables
+8 constraints, all linear; 18 nonzeros
+	6 equality constraints
+	2 inequality constraints
+1 linear objective; 1 nonzero.
+
+CPLEX 12.9.0.0: optimal integer solution; objective 0.5
+1 MIP simplex iterations
+0 branch-and-bound nodes
+
+display _varname, _var;
+:       _varname       _var     :=
+1   'X[1,1]'            1
+2   'X[1,2]'            0
+3   'X[2,1]'            0
+4   'X[2,2]'            1
+5   Y                   0.5
+6   'Envy[1]'          -0.6
+7   'Envy[2]'           0.5
+8   'personVALUE[1]'    0.8
+9   'personVALUE[2]'    0.25
+;
+
+ampl: 
