@@ -5,7 +5,7 @@ reset;
 
 # start the log file
 # option log_file 'p1.txt';
-
+option show_stats 0;
 # declare set for which files are going to be read and parameters to hold variables of interest
 set files = 1 .. 210;
 # param pMinColl {files};
@@ -55,6 +55,7 @@ for {i in files} {
 # display {k in 1.._nobjs} (_objname[k], _obj[k]);
 # display _total_solve_time;
 # option log_file '';
+option show_stats 1;
 reset;
 
 # option log_file 'p1_.txt';
