@@ -3,7 +3,7 @@ reset;
 
 model p2.mod;
 
-data p1_larger.dat; 
+data p1_simple.dat; 
 
 solve;
 

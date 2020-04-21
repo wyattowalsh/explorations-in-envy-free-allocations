@@ -14,7 +14,8 @@ param numPeople;
 var pMax >= 0, <= 1;
 var totIndValue{people} >= 0, <= 1;
 var p{people} <= 1, >= 0; 
-var vMax{people} <= 1, >= 0;
+var vItemMax{people} <= 1, >= 0;
+var vItem{people,object} <= 1, >= 0;
 # var tot_indv_VAL{people} >= 0, <= 1;
 
 var X{people, objects} binary;
@@ -47,10 +48,15 @@ findTotIndValue {person in people}:
 # def_tot_indv_VAL {person in people}:
 # 	tot_indv_VAL[person] =
 # 	sum{object in objects} (X[person,object] * VALUES[person,object]);
+getVItem {person in people, object in objects}:
+	vItem[person,object] = v[person,object]
+# maxV is the largest value of v for a person of objects not in portfolio
+maxItemV {person in people, object in objects}:
+	vItemMax[person] >= vItem[person,object]*(1-X[person,object]);
 
-maxV {person in people, object in objects}:
-	vMax[person] >= v[person, object] * (1 - X[person, object]);
-
+lowBoundMaxItemV {person in people}:
+	vItemMax[person] <=
+	
 boundV {person in people}:
 	vMax[person] <= max {object in objects} v[person,object];
 

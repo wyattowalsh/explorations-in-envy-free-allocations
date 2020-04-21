@@ -10,12 +10,13 @@ param numPeople;
 
 ### VARIABLES ###
 var pMax >= 0, <= 1;
-var totIndValue{people} >= 0, <= 1;
-var p{people} <= 1, >= 0;
-var vMax {people} <= 1, >= 0; 
+var totIndValue{people, people} >= 0, <= 1;
+var p{people, people} <= 1;
+var vMax {people, people} <= 1, >= 0; 
 var X{people, objects} binary;
+var bestFor{people, people} binary;
 
-minimize p2: pMax;
+minimize p2: pMax; 
 
 # every item is allocated to some person
 ## sum of indicators over all people should equal 1 for all objects
@@ -29,15 +30,25 @@ indivisibleObjects:
 # intermediary constraint to find each person's optimal allocation value
 ## This is enabled by summing over all objects and filtering using the X
 ## indicator variable.
-findTotIndValue {person in people}:
-	totIndValue[person] =  
-	sum{object in objects} (X[person,object] * v[person,object]);
+findTotIndValue {person in people, otherPerson in people}:
+	totIndValue[person, otherPerson] =  
+	sum {object in objects} (v[person, object] * X[otherPerson, object]);
 
-maxP {person in people}:
-	pMax >= p[person];
+maxP {person in people, otherPerson in people: otherPerson<>person}:
+	pMax >= p[person, otherPerson];
 
-findP {person in people}:
-	 p[person] >= (1 - totIndValue[person] - vMax[person]) - totIndValue[person];
+findP {person in people, otherPerson in people: otherPerson <> person}: #, otherPerson in people: otherPerson <> person
+	 p[person,  otherPerson] =  totIndValue[person, otherPerson] - (vMax[person, otherPerson]) - totIndValue[person, person];
 
-findVMax {person in people, object in objects}:
-	vMax[person] >= (v[person, object] * (1-X[person,object]));
+# findOtherValue {person in people}:
+# 	totOtherValue [person]
+getBestFor {person in people, otherPerson in people: otherPerson<>person}:
+	bestFor >=
+
+
+findVMax {person in people, otherPerson in people, object in objects: person <> otherPerson}:
+	vMax[person, otherPerson] >= (v[otherPerson, object] * (X[otherPerson,object]));
+
+
+
+
