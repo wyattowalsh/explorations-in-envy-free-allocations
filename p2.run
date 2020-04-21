@@ -1,0 +1,10 @@
+
+reset; 
+
+model p2.mod;
+
+data p1_larger.dat; 
+
+solve;
+
+display _varname, _var;
