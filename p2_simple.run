@@ -1,0 +1,11 @@
+# run file for p1_simple
+
+reset;
+
+model p2_simple.mod;
+
+data p2_simple.dat;
+
+solve;
+
+display _varname, _var;
