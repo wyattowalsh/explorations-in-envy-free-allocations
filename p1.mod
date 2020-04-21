@@ -49,7 +49,7 @@ findTotIndValue {person in people, otherPerson in people}:
 ## This is determined by the inequality 
 ## portfolio value >= portfolio value complement - p
 findP {person in people, otherPerson in people: otherPerson <> person}:
-	p[person, otherPerson] = totIndValue[person,otherPerson] - totIndValue[person, person]; # >= ?
+	p[person, otherPerson] = totIndValue[person,otherPerson] - totIndValue[person, person]; # >= 
  # 
 # detPos[person] - detPos[person] * 2 * totIndValue[person];
 maxP {person in people, otherPerson in people: otherPerson <> person}:
