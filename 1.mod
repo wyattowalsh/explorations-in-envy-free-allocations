@@ -22,7 +22,7 @@ var pEnvyFree{P} <=1;
 # # var adjP{people} <=1;
 # helper variable for the value of a certain person's allocated value.
 var setValue{P} <=1;
-var setValueSelf{P};
+var setValueSelf{P} <=1;
 ### OBJECTIVE FUNCTION ###
 minimize maxPEnvyFree: z;
 
@@ -37,22 +37,19 @@ allocateEach {i in I}:
 allocateAll:
 	sum{p in P, i in I} x[p,i] = card(I);
 
-# basicFairness {p in P}:
-# 	sum{i in I} x[p,i] >= 1;
-
 findSetValue {p1 in P, p2 in P}:
 	setValue[p1] >=
 	sum {i in I} (v[p1, i] * x[p2, i]);
 
 findSetValueSelf {p in P}:
-	setValueSelf[p] = 
+	setValueSelf[p] <= 
 	sum {i in I} (v[p, i] * x[p, i]);
 # intermediary constraint to determine each person's p level of 
 # envy-freeness
 ## This is determined by the inequality 
 ## portfolio value >= portfolio value complement - p
 findPEnvyFree {p in P}:
-	pEnvyFree[p] = setValue[p] - setValueSelf[p]; # >= 
+	pEnvyFree[p] >= setValue[p] - setValueSelf[p]; # >= 
  
 # detPos[person] - detPos[person] * 2 * totIndValue[person];
 

@@ -10,7 +10,7 @@ param cash;
 ### VARIABLES ### 
 
 # variable for max p of p-envy-free present in the set people
-var z <= 1, >= 0;
+var z <= 1;
 
 # indicator variable whether person i is assigned object j
 var x{P, I} binary; 
@@ -20,13 +20,15 @@ var x{P, I} binary;
 
 # helper variable for p of p-envy-free for each person in people
 ## defined as greater than or equal to 0; Also rows sum to 1, thus <= 1
-var pEnvyFree{P, P} <= 1;
+var pEnvyFree{P} <= 1;
 
 # # var adjP{people} <=1;
 # helper variable for the value of a certain person's allocated value.
-var setValue{P, P} >= 0, <= 1;
+var setValue{P} <= 1;
 
-var cashProportion{P} >=0, <=1;
+var setValueSelf{P} <=1;
+
+var cashProportion{P} <=1;
 ### OBJECTIVE FUNCTION ###
 minimize maxPEnvyFree: z;
 
@@ -42,23 +44,26 @@ allocateAllCash:
 	sum{p in P} (cashProportion[p]) = 1;
 
 findSetValue {p1 in P, p2 in P}:
-	setValue[p1, p2] =  
+	setValue[p1] >= 
 	(sum {i in I} (v[p1, i] * x[p2, i]) + (cashProportion[p2] * cash))/(sum {i in I} (v[p1, i]) + cash);
- 
+
+findSetValueSelf {p in P}:
+	setValueSelf[p] <= 
+	(sum {i in I} (v[p, i] * x[p, i]) + (cashProportion[p] * cash))/(sum {i in I} (v[p, i]) + cash);
 
 # intermediary constraint to determine each person's p level of 
 # envy-freeness
 ## This is determined by the inequality 
 ## portfolio value >= portfolio value complement - p
-findPEnvyFree {p1 in P, p2 in P}:
-	pEnvyFree[p1, p2] >= setValue[p1,p2] - setValue[p1, p1]; # >= 
+findPEnvyFree {p in P}:
+	pEnvyFree[p] >= setValue[p] - setValueSelf[p]; # >= 
  
 # detPos[person] - detPos[person] * 2 * totIndValue[person];
 
 # Find the worst p-envy level among all person i's view of person j
 ## Set new var greater than all p-envy values
-defineZ {p1 in P, p2 in P}:
-	z >= pEnvyFree[p1, p2];
+defineZ {p in P}:
+	z >= pEnvyFree[p];
 
 # # Ensure feasibility and correct execution of max{p}
 # # # Set an upper bound as p-envy associated with highest p-envy among i,j pairs

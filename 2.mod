@@ -15,7 +15,7 @@ var z <= 1;
 # indicator variable whether person i is assigned object j
 var x{P, I} binary; 
 
-# # indicator variable to find optimal upper bound for z
+# indicator variable to find optimal upper bound for z
 var y{P, I} binary;
 
 # var i{P,P} binary;
@@ -26,7 +26,7 @@ var pEnvyFree{P} <= 1;
 # # var adjP{people} <=1;
 # helper variable for the value of a certain person's allocated value.
 var setValue{P} <= 1;
-var setValueSelf{P};
+var setValueSelf{P} <= 1;
 var setValueMinusOne{P} <= 1;
 ### OBJECTIVE FUNCTION ###
 minimize maxPEnvyFree: z;
@@ -47,7 +47,7 @@ findSetValue {p1 in P, p2 in P}:
 	sum {i in I} (v[p1, i] * x[p2, i]);
 
 findSetValueSelf {p in P}:
-	setValueSelf[p] = 
+	setValueSelf[p] <= 
 	sum {i in I} (v[p, i] * x[p, i]);
 
 findSetValueMinusOne {p1 in P, p2 in P}:
@@ -64,7 +64,7 @@ maintainPortfolis {p in P, i in I}:
 ## This is determined by the inequality 
 ## portfolio value >= portfolio value complement - p
 findPEnvyFree {p in P}:
-	pEnvyFree[p] = setValueMinusOne[p] - setValueSelf[p]; # >= 
+	pEnvyFree[p] >= setValueMinusOne[p] - setValueSelf[p]; # >= 
  
 # detPos[person] - detPos[person] * 2 * totIndValue[person];
 
