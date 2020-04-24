@@ -7,8 +7,8 @@ option show_stats 0;
 option display_1col 0; 
 option solver_msg -1;
 # declare set for which files are going to be read and parameters to hold variables of interest
-set F = 1 .. 250;
-set cashCount = 1 .. 100;
+set F = 1 .. 262;
+set C := 0 .. 3 by 0.125;
 var status binary;
 model 3.mod;
 
@@ -52,23 +52,21 @@ print 'pEnvyFree, solveTime, |I|, |P|, fileNumber' >  ('./data/output/3.txt');
 
 for {f in F} {
 	data ("./data/generated/" & f & ".dat");
-	data ("./data/generated/cash.dat");
-	for {c in cashCount} {
-		fix cash := C[c];
+	for {cc in C} {
+		let cash := cc;
 		# print("File: " & i & " begins here:") >>  '1.txt';
 		solve;
 		if match(solve_message, "infeasible") > 0 or _solve_time > 150 then { 
 			print f & ' is infeasible';
 			print 'NaN' &  ', ' & precision(_solve_time,5) & 
-			', ' & (card(I)) & ', ' & (card(P)) & ', ' & f >> ('./data/output/3.txt');
-			reset data;
+			', ' & (card(I)) & ', ' & (card(P)) & ', ' & cash & ', ' & f >> ('./data/output/3.txt');
 			break;
 			continue;
 		}
 		print precision(z,5) & ', ' & precision(_solve_time,5) & 
-			', ' & (card(I)) & ', ' & (card(P)) & ', ' & f >>  ('./data/output/3.txt');
-		reset data;
+			', ' & (card(I)) & ', ' & (card(P)) & ', ' & cash & ', ' & f >>  ('./data/output/3.txt');
 	}
+	reset data;
 }
 
 option show_stats 0;

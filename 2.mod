@@ -21,13 +21,13 @@ var y{P, I} binary;
 # var i{P,P} binary;
 # helper variable for p of p-envy-free for each person in people
 ## defined as greater than or equal to 0; Also rows sum to 1, thus <= 1
-var pEnvyFree{P, P} <= 1;
+var pEnvyFree{P} <= 1;
 
 # # var adjP{people} <=1;
 # helper variable for the value of a certain person's allocated value.
-var setValue{P, P} >= 0, <= 1;
-
-var setValueMinusOne{P,P} >= 0, <= 1;
+var setValue{P} <= 1;
+var setValueSelf{P};
+var setValueMinusOne{P} <= 1;
 ### OBJECTIVE FUNCTION ###
 minimize maxPEnvyFree: z;
 
@@ -36,15 +36,22 @@ s.t.
 
 # every item is allocated to some person
 ## sum of indicators over all people should equal 1 for all objects
-allocateAll {i in I}:
+allocateEach {i in I}:
 	sum{p in P} (x[p,i]) = 1;
 
+allocateAll:
+	sum{p in P, i in I} x[p,i] = card(I);
+
 findSetValue {p1 in P, p2 in P}:
-	setValue[p1, p2] =  
+	setValue[p1] >=  
 	sum {i in I} (v[p1, i] * x[p2, i]);
 
+findSetValueSelf {p in P}:
+	setValueSelf[p] = 
+	sum {i in I} (v[p, i] * x[p, i]);
+
 findSetValueMinusOne {p1 in P, p2 in P}:
-	setValueMinusOne[p1, p2] =  
+	setValueMinusOne[p1] >= 
 	sum {i in I} (v[p1, i] * y[p2, i]);
 
 removeItem:
@@ -56,15 +63,15 @@ maintainPortfolis {p in P, i in I}:
 # envy-freeness
 ## This is determined by the inequality 
 ## portfolio value >= portfolio value complement - p
-findPEnvyFree {p1 in P, p2 in P}:
-	pEnvyFree[p1, p2] = setValueMinusOne[p1,p2] - setValueMinusOne[p1, p1]; # >= 
+findPEnvyFree {p in P}:
+	pEnvyFree[p] = setValueMinusOne[p] - setValueSelf[p]; # >= 
  
 # detPos[person] - detPos[person] * 2 * totIndValue[person];
 
 # Find the worst p-envy level among all person i's view of person j
 ## Set new var greater than all p-envy values
-defineZ {p1 in P, p2 in P}:
-	z >= pEnvyFree[p1, p2];
+defineZ {p in P}:
+	z >= pEnvyFree[p];
 
 # Ensure feasibility and correct execution of max{p}
 # # # Set an upper bound as p-envy associated with highest p-envy among i,j pairs
