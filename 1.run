@@ -1,66 +1,70 @@
-# This is the run file for problem 1 
-
-# reset everything to start fresh
 reset;
+
 reset options;
 option solver '/Applications/ampl_macosx64/cplex'; 
-
-option show_stats 0;
-option display_1col 0; 
-option solver_msg 0;
+# option show_stats 0;
+# option display_1col 0; 
+# option solver_msg 0;
 option solution_round 4;
-option cplex_options 'lowerobj=0 mipemphasis=1 memoryemphasis=1 timelimit=300'; #integrality=1e-9 
-# declare set for which files are going to be read and parameters to hold variables of interest
-set F = 1 .. 143;
+option cplex_options 'timelimit = 90 probe = 3 mipemphasis = 1 mipcuts = 2 lowerobjlim = 0'; #mipdisplay = 5
+# option cplex_options 'tunefile= "./data/tuning/S.txt" tunerepeat=25 tunedisplay=0'; 
 
-model 1.mod;
+set F = 1 .. 63;
+
+model 1.mod; 
 
 data "./data/simple.dat"; 
 
+# commands 1_startValues.cmd;
+commands normalize.cmd;
+
 solve;
+display solve_result, {p in P, i in I} x[p,i], z > ('./data/output/1_simple.txt');
+close ('./data/output/1_simple.txt');
+reset data; 
 
-display solve_result > ('./data/output/1_simple.txt');
-display {p in P, i in I} round(x[p,i],4) >>  ('./data/output/1_simple.txt');
-display {p in P} round(setValue[p],4)  >>  ('./data/output/1_simple.txt');
-display {p in P} round(setValueSelf[p],4)  >>  ('./data/output/1_simple.txt');
-display {p in P} round(pEnvyFree[p],4) >>  ('./data/output/1_simple.txt');
-display z >> ('./data/output/1_simple.txt');
-
-reset data;
+# option cplex_options 'tunefile="./data/tuning/1/L.txt" tunerepeat=25 tunedisplay=0 tunefix= "time"';
 
 data "./data/larger.dat";
 
+# commands 1_startValues.cmd;
+commands normalize.cmd;
+
 solve;
-
-display solve_result > ('./data/output/1_larger.txt');
-display {p in P, i in I} round(x[p,i],4) >>  ('./data/output/1_larger.txt');
-display {p in P} round(setValue[p],4)  >>  ('./data/output/1_larger.txt');
-display {p in P} round(setValueSelf[p],4)  >>  ('./data/output/1_larger.txt');
-display {p in P} round(pEnvyFree[p],4) >>  ('./data/output/1_larger.txt');
-display z >> ('./data/output/1_larger.txt');
-
-reset data; 
+display solve_result, {p in P, i in I} x[p,i], z > ('./data/output/1_larger.txt');
+close ('./data/output/1_larger.txt');
+reset data;
 
 print 'solveResult, pEnvyFree, solveElapsedTime, |P|, |I|, fileNumber' >  ('./data/output/1.txt');
+close ('./data/output/1.txt');
 
 for {f in F} {
+	# option cplex_options ('tunefile="./data/tuning/1/' & f & '.txt" tunedisplay=0 tunerepeat=25');
+
 	data ("./data/generated/" & f & ".dat");
+
+	# commands 1_startValues.cmd;
+	commands normalize.cmd;
 
 	solve;
 
 	if solve_result <> 'solved' then { 
 		print f & " solve result: " & solve_result;
 
-		print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+		print solve_result_num & ', ' &  z &  ', ' & round(_solve_elapsed_time,4) & 
 		', ' & (card(P)) & ', ' & (card(I)) & ', ' & f >> ('./data/output/1.txt');
+
+		close ('./data/output/1.txt');
 
 		reset data;
 
 		continue;
 	}
 
-	print  solve_result_num & ', ' & round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+	print  solve_result_num & ', ' & z &  ', ' & round(_solve_elapsed_time,4) & 
 		', ' & (card(P)) & ', ' & (card(I)) & ', ' & f >>  ('./data/output/1.txt');
-	
+
+	close ('./data/output/1.txt');
+
 	reset data;
 }

@@ -6,7 +6,8 @@ set I;
 ### PARAMETERS ###
 
 param v{P, I};
-param cash; 
+param cashValue{P}; 
+param pVSums{P};
 ### VARIABLES ### 
 
 # variable for max p of p-envy-free present in the set people
@@ -29,6 +30,7 @@ var setValue{P} <= 1;
 var setValueSelf{P} <=1;
 
 var cashProportion{P} <=1;
+
 ### OBJECTIVE FUNCTION ###
 minimize maxPEnvyFree: z;
 
@@ -45,11 +47,11 @@ allocateAllCash:
 
 findSetValue {p1 in P, p2 in P}:
 	setValue[p1] >= 
-	(sum {i in I} (v[p1, i] * x[p2, i]) + (cashProportion[p2] * cash))/(sum {i in I} (v[p1, i]) + cash);
+	sum {i in I} (v[p1, i] * x[p2, i]) + (cashProportion[p2] * cashValue[p1]);
 
 findSetValueSelf {p in P}:
 	setValueSelf[p] <= 
-	(sum {i in I} (v[p, i] * x[p, i]) + (cashProportion[p] * cash))/(sum {i in I} (v[p, i]) + cash);
+	sum {i in I} (v[p, i] * x[p, i]) + (cashProportion[p] * cashValue[p]);
 
 # intermediary constraint to determine each person's p level of 
 # envy-freeness

@@ -6,7 +6,7 @@ set I;
 ### PARAMETERS ###
 
 param v{P, I};
-
+param pVSums{P};
 ### VARIABLES ### 
 
 # variable for max p of p-envy-free present in the set people

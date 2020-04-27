@@ -11,74 +11,91 @@ option solver_msg 0;
 option solution_round 4;
 option cplex_options 'lowerobj=0 memoryemphasis=1 mipemphasis=1 timelimit=300'; #integrality=1e-9 mipemphasis=1
 # declare set for which files are going to be read and parameters to hold variables of interest
-set F = 1 .. 143;
-set CASH := 5e-2 .. 1 by 0.05;
-set newI;
+set F = 1 .. 290;
+set CASH = (0 .. 0.25 by 0.00625) union (0.4 .. 1 by 0.3);
+param cash;
 # value of goods is between 0 & 1. Their value is 10000 multiplied by this proportion
 # thus cash should be the number of items * 0.5 (E[]) 
 model 3.mod;
 
-# data "./data/simple_cash.dat"; 
-# # for {c in CASH} {
-# # 	let cash := c;
+data "./data/simple.dat"; 
 
-# solve;
+let cash := 0.3;
 
-# display solve_result > ('./data/output/3_simple.txt');
-# display cash >> ('./data/output/3_simple.txt');
-# display {p in P, i in I} round(x[p,i],4) >>  ('./data/output/3_simple.txt');
-# display {p in P} round(setValue[p],4)  >>  ('./data/output/3_simple.txt');
-# display {p in P} round(setValueSelf[p],4)  >>  ('./data/output/3_simple.txt');
-# display {p in P} round(pEnvyFree[p],4) >>  ('./data/output/3_simple.txt');
-# display z >> ('./data/output/3_simple.txt');;
-# # 	reset data cash;
+commands normalizeCash.data;
+
+solve;
+
+# reset;
+
+display solve_result > ('./data/output/3_simple.txt');
+display cash >> ('./data/output/3_simple.txt');
+display {p in P, i in I} round(x[p,i],4) >>  ('./data/output/3_simple.txt');
+display {p in P} round(setValue[p],4)  >>  ('./data/output/3_simple.txt');
+display {p in P} round(setValueSelf[p],4)  >>  ('./data/output/3_simple.txt');
+display {p in P} round(pEnvyFree[p],4) >>  ('./data/output/3_simple.txt');
+display z >> ('./data/output/3_simple.txt');
+close ('./data/output/3_simple.txt');
 # # }
 
-# reset data;
+reset data;
 
-# data "./data/larger.dat";
+let cash := 0.3;
 
-# for {c in CASH} {
-# 	let cash := c;
-# 	solve;
+data "./data/larger.dat";
 
-# 	display solve_result > ('./data/output/3_larger.txt');
-# 	display cash >> ('./data/output/3_larger.txt');
-# 	display {p in P, i in I} round(x[p,i],4) >>  ('./data/output/3_larger.txt');
-# 	display {p in P} round(setValue[p],4)  >>  ('./data/output/3_larger.txt');
-# 	display {p in P} round(setValueSelf[p],4)  >>  ('./data/output/3_larger.txt');
-# 	display {p in P} round(pEnvyFree[p],4) >>  ('./data/output/3_larger.txt');
-# 	display z >> ('./data/output/3_larger.txt');
-# 	reset data cash;
+commands normalizeCash.data;
+
+solve;
+
+display solve_result > ('./data/output/3_larger.txt');
+display cash >> ('./data/output/3_larger.txt');
+display {p in P, i in I} round(x[p,i],4) >>  ('./data/output/3_larger.txt');
+display {p in P} round(setValue[p],4)  >>  ('./data/output/3_larger.txt');
+display {p in P} round(setValueSelf[p],4)  >>  ('./data/output/3_larger.txt');
+display {p in P} round(pEnvyFree[p],4) >>  ('./data/output/3_larger.txt');
+display z >> ('./data/output/3_larger.txt');
+close ('./data/output/3_larger.txt');
 # }
-# reset data; 
+reset data; 
 
 print 'solveResult, pEnvyFree, solveElapsedTime, |P|, |I|, cash,  fileNumber' >  ('./data/output/3.txt');
-
+close ('./data/output/3.txt');
+param envyFreeCounter;
+let envyFreeCounter := 0; 
 for {f in F} {
 	data ("./data/generated/" & f & ".dat");
-	let newI :=  1 .. (card(I)+1);
-	param newV{P, newI};
 	for {c in CASH} {
-		let cash := round((1-c)/c,4);
-		let {p in P} v{p,i} 
+		let cash := c;
+		commands normalizeCash.data;
 		solve;
-
 		if solve_result <> 'solved' then { 
 			print f & " solve result: " & solve_result;
 
 			print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
-			', ' & (card(P)) & ', ' & (card(I)) & ', ' & cash & ', ' & f >> ('./data/output/3.txt');
+			', ' & (card(P)) & ', ' & (card(I)) & ', ' & round(cash * 10000,4) & ', ' & f >> ('./data/output/3.txt');
+
+			close ('./data/output/3.txt');
 
 			reset data cash;
 
 			continue;
 		}
+		if z == 0 then { 
+			let envyFreeCounter := envyFreeCounter + 1;
+		}
+
+		if envyFreeCounter == 3 then {
+			let envyFreeCounter := 0; 
+			break;
+		}
 
 		print  solve_result_num & ', ' & round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
-			', ' & (card(P)) & ', ' & (card(I)) & ', ' & cash & ', ' & f >>  ('./data/output/3.txt');
+			', ' & (card(P)) & ', ' & (card(I)) & ', ' & round(cash * 10000,4) & ', ' & f >>  ('./data/output/3.txt');
+		
+		close ('./data/output/3.txt');
 		
 		reset data cash;
 	}
-	reset data;
+	reset data cash v P I;
 }
