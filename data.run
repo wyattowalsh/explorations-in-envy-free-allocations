@@ -1,0 +1,37 @@
+reset;
+set S := (1..10) union (20 .. 50 by 10) union (100 .. 200 by 50) union (250 .. 350 by 26);
+set P;
+set I;
+param v{P,I};
+param count;
+let count := 0;
+for {p in S} {
+	for {i in S: 3 * p > i} {
+		let count := count + 1;
+		let P := 1 .. p;
+		let I := 1 .. i;
+		let {p1 in P, i1 in I} v[p1,i1] := round(Uniform01(),4);
+		display P, I > ('./data/generated/' & count & '_cash.dat');
+		print('param ') >> ('./data/generated/' & count & '_cash.dat');
+		display v >> ('./data/generated/' & count & '_cash.dat');
+		close ('./data/generated/' & count & '_cash.dat');
+		reset data v;
+	}
+}
+
+set T := (5..10) union (20 .. 50 by 10) union (100 .. 200 by 50) union (250 .. 350 by 26);
+let count := 0;
+for {p in T} {
+	for {i in T: (p <= i) and (3*p > i)} {
+		let count := count + 1;
+		let P := 1 .. p;
+		let I := 1 .. i;
+		let {p1 in P, i1 in I} v[p1,i1] := round(Uniform01(),4);
+		display P, I > ('./data/generated/' & count & '.dat');
+		print('param ') >> ('./data/generated/' & count & '.dat');
+		display v >> ('./data/generated/' & count & '.dat');
+		close ('./data/generated/' & count & '.dat');
+		reset data v;
+	}
+}
+

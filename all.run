@@ -1,0 +1,5 @@
+include 1.run;
+
+include 2.run;
+
+include 3.run;
