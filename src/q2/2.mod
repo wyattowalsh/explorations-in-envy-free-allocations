@@ -59,6 +59,8 @@ removeItem:
 
 maintainPortfolis {p in P, i in I}:
 	y[p,i] <= x[p,i];
+
+	
 # intermediary constraint to determine each person's p level of 
 # envy-freeness
 ## This is determined by the inequality 

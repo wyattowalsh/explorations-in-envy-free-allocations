@@ -1,0 +1,38 @@
+reset;
+option randseed 18;
+set S := (1..20); # union (20 .. 50 by 10) union (100 .. 200 by 50) union (250 .. 350 by 26);
+set P;
+set I;
+param v{P,I};
+param count;
+let count := 0;
+for {p in S} {
+	for {i in S} {
+		let count := count + 1;
+		let P := 1 .. p;
+		let I := 1 .. i;
+		let {p1 in P, i1 in I} v[p1,i1] := round(Uniform01(),4);
+		display P, I > ('./data/input/generated/with_cash/' & count & '.dat');
+		print('param ') >> ('./data/input/generated/with_cash/' & count & '.dat');
+		display v >> ('./data/input/generated/with_cash/' & count & '.dat');
+		close ('./data/input/generated/with_cash/' & count & '.dat');
+		reset data v;
+	}
+}
+
+set T := (2..20); # union (20 .. 50 by 10) union (100 .. 200 by 50) union (250 .. 350 by 26);
+let count := 0;
+for {p in T} {
+	for {i in T: (p <= i)} {
+		let count := count + 1;
+		let P := 1 .. p;
+		let I := 1 .. i;
+		let {p1 in P, i1 in I} v[p1,i1] := round(Uniform01(),4);
+		display P, I > ('./data/input/generated/without_cash/' & count & '.dat');
+		print('param ') >> ('./data/input/generated/without_cash/' & count & '.dat');
+		display v >> ('./data/input/generated/without_cash/' & count & '.dat');
+		close ('./data/input/generated/without_cash/' & count & '.dat');
+		reset data v;
+	}
+}
+
