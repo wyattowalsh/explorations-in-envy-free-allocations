@@ -60,8 +60,9 @@ minimize maxPEnvyFree: z;
 subject to determinePairings {p in P}:
 	numberof p in ({i in I} personForItem[i]) <= card(I);
 
-subject to findSetValues{i1 in I, i2 in I: personForItem[i1] = personForItem[i2]}:
-	h >= sum{} v[p,i];
+
+subject to findSetValues{p in P}:
+	setValue[p] = sum{i in I: personForItem[i] = P} v[p,i];
 
 subject to findEnvy{p1 in P, p2 in P}:
 	envy[p1] = setValue[p2] - setValue[p1];

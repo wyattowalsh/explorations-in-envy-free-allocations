@@ -3,33 +3,37 @@ reset;
 reset options;
 option solver '/Applications/ampl_macosx64/cplex'; 
 # option show_stats 0;
-# option display_1col 0; 
+option display_1col 0; 
 # option solver_msg 0;
-option solution_round 4;
-option cplex_options 'timelimit = 90 probe = 3 mipemphasis = 1 mipcuts = 2 lowerobjlim = 0'; #mipdisplay = 5
-# option cplex_options 'tunefile= "./data/tuning/S.txt" tunerepeat=25 tunedisplay=0'; 
+option solution_round  4;
+option cplex_options 'cutpass = -1 heurfreq = -1 probe = -1 tunedisplay = 0 tunerepeat = 10 varsel = 4';
+# option cplex_options 'concurrent cutpass = -1'; #mipdisplay = 4 timelimit = 90 probe = 3 mipemphasis = 1 mipcuts = 2 lowerobjlim = 0';
+# option cplex_options 'tunefile= "./data/tuning/S.txt" tunerepeat=10 tunedisplay=2'; 
 
-set F = 1 .. 63;
+set F = 1 .. 190;
 
 model 1.mod; 
 
 data "./data/simple.dat"; 
 
-# commands 1_startValues.cmd;
 commands normalize.cmd;
-
+commands getWorstCase.cmd;
+commands 1_startValues.cmd;
 solve;
 display solve_result, {p in P, i in I} x[p,i], z > ('./data/output/1_simple.txt');
 close ('./data/output/1_simple.txt');
 reset data; 
 
-# option cplex_options 'tunefile="./data/tuning/1/L.txt" tunerepeat=25 tunedisplay=0 tunefix= "time"';
+option cplex_options 'cutpass = -1 heurfreq = -1 probe = -1 tunedisplay = 0 tunerepeat = 10 varsel = 4';
+# option cplex_options 'tunefile="./data/tuning/1/L.txt" tunerepeat=10 tunedisplay=0 tunefix= "time"';
 
 data "./data/larger.dat";
 
 # commands 1_startValues.cmd;
 commands normalize.cmd;
+commands getWorstCase.cmd;
 
+commands 1_startValues.cmd;
 solve;
 display solve_result, {p in P, i in I} x[p,i], z > ('./data/output/1_larger.txt');
 close ('./data/output/1_larger.txt');
@@ -39,13 +43,17 @@ print 'solveResult, pEnvyFree, solveElapsedTime, |P|, |I|, fileNumber' >  ('./da
 close ('./data/output/1.txt');
 
 for {f in F} {
-	# option cplex_options ('tunefile="./data/tuning/1/' & f & '.txt" tunedisplay=0 tunerepeat=25');
+	option cplex_options 'cutpass = -1 heurfreq = -1 probe = -1 tunedisplay = 0 tunerepeat = 10 varsel = 4';
+	
+	# option cplex_options ('tunefile="./data/tuning/1/' & f & '.txt" tunedisplay=0 tunerepeat=10');
 
 	data ("./data/generated/" & f & ".dat");
 
 	# commands 1_startValues.cmd;
 	commands normalize.cmd;
+	commands getWorstCase.cmd;
 
+	commands 1_startValues.cmd;
 	solve;
 
 	if solve_result <> 'solved' then { 
