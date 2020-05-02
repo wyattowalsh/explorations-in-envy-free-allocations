@@ -1,12 +1,12 @@
-# This is the run file for problem 1 
+# This is the run file for problem 1
 
 # reset everything to start fresh
 reset;
 reset options;
-option solver '/Applications/ampl_macosx64/cplex'; 
+option solver '/Users/chrislandgrebe/Desktop/ampl_macosx64/cplex'; 
 
 option show_stats 0;
-option display_1col 0; 
+option display_1col 0;
 option solver_msg 0;
 option solution_round 4;
 option cplex_options 'timelimit=900';
@@ -17,12 +17,12 @@ set F = 1 .. 190;
 
 
 # value of goods is between 0 & 1. Their value is 10000 multiplied by this proportion
-# thus cash should be the number of items * 0.5 (E[]) 
+# thus cash should be the number of items * 0.5 (E[])
 model './src/q2/q2.mod';
 
 param pVSums{P};
 
-data "./data/input/simple.dat"; 
+data "./data/input/simple.dat";
 commands "./src/commands/normalize.cmd";
 solve;
 
@@ -39,7 +39,7 @@ display solve_result, {p in P, i in I} round(x[p,i],4), z > ('./data/output/q2/l
 close ('./data/output/q2/larger.txt');
 
 reset data;
-print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' & 
+print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' &
 '|P|, |I|, fileNumber' >  ('./data/output/q2/results.txt');
 close ('./data/output/q2/results.txt');
 
@@ -47,13 +47,13 @@ for {f in F} {
 	data ("./data/input/generated/without_cash/" & f & ".dat");
 
 	commands "./src/commands/normalize.cmd";
-	
+
 	solve;
 
-	if solve_result <> 'solved' then { 
+	if solve_result <> 'solved' then {
 		print f & " solve result: " & solve_result;
 
-		print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+		print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
 		', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) & ', ' & f >> ('./data/output/q2/results.txt');
 
 		close ('./data/output/q2/results.txt');
@@ -62,9 +62,9 @@ for {f in F} {
 		continue;
 	}
 
-	print  solve_result_num & ', ' & round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+	print  solve_result_num & ', ' & round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
 		', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) & ', ' & f >>  ('./data/output/q2/results.txt');
 		close ('./data/output/q2/results.txt');
-	
+
 	reset data;
 }

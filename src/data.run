@@ -35,4 +35,3 @@ for {p in T} {
 		reset data v;
 	}
 }
-

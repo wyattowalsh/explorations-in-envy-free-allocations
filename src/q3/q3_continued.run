@@ -12,27 +12,16 @@ option solution_round 4;
 option cplex_options 'timelimit=900';
 
 # declare set for which files are going to be read and parameters to hold variables of interest
-set F = 1 .. 400;
+set F = 196 .. 400;
 set CASH = (0 .. 0.25 by 0.00625) union (0.4 .. 1 by 0.2);
 # value of goods is between 0 & 1. Their value is 10000 multiplied by this proportion
 # thus cash should be the number of items * 0.5 (E[])
 model './src/q3/q3.mod';
 
-data './data/input/simple.dat';
-
-let cash := 0.3;
-
-solve;
-
-display solve_result, cash, {p in P, i in I} round(x[p,i],4),
-{p in P} cashProportion[p], z > ('./data/output/q3/simple.txt');
-close ('./data/output/q3/simple.txt');
-
-reset data cash v P I;
 
 print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' &
-'|P|, |I|, cash,  fileNumber' >  ('./data/output/q3/results.txt');
-close ('./data/output/q3/results.txt');
+'|P|, |I|, cash,  fileNumber' >  ('./data/output/q3/results_continued.txt');
+close ('./data/output/q3/results_continued.txt');
 
 for {f in F} {
 	data ("./data/input/generated/with_cash/" & f & ".dat");
@@ -43,10 +32,10 @@ for {f in F} {
 			print f & " solve result: " & solve_result;
 
 			print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
-			', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) &
-			', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results.txt');
+			', ' & 35088.3478, +round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) &
+			', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results_continued.txt');
 
-			close ('./data/output/q3/results.txt');
+			close ('./data/output/q3/results_continued.txt');
 
 			reset data cash;
 
@@ -54,10 +43,10 @@ for {f in F} {
 		}
 
 		print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
-			', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) &
-			', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results.txt');
+			', ' & 35088.3478+round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) &
+			', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results_continued.txt');
 
-		close ('./data/output/results.txt');
+		close ('./data/output/q3/results_continued.txt');
 
 		reset data cash;
 	}
