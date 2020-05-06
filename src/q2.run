@@ -1,12 +1,13 @@
+
 # This is the run file for problem 2
 
 # reset everything to start fresh
 reset;
 reset options;
-option solver '/Applications/ampl_macosx64/cplex'; 
+option solver '/Users/chrislandgrebe/Desktop/ampl_macosx64/cplex'; 
 
 option show_stats 0;
-option display_1col 0; 
+option display_1col 0;
 option solver_msg 0;
 option solution_round 4;
 option cplex_options 'timelimit=300';
@@ -22,7 +23,7 @@ model './src/q2.mod';
 
 param pVSums{P};
 
-data "./data/input/simple.dat"; 
+data "./data/input/simple.dat";
 commands "./src/commands/normalize.cmd";
 commands "./src/commands/determine_nonneg.cmd";
 solve;
@@ -41,7 +42,7 @@ display solve_result, {p in P, i in I} x[p,i], round(z,4) > ('./data/output/q2/l
 close ('./data/output/q2/larger.txt');
 
 reset data;
-print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' & 
+print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' &
 '|P|, |I|, fileNumber' >  ('./data/output/q2/results.txt');
 close ('./data/output/q2/results.txt');
 
@@ -50,14 +51,15 @@ for {f in F} {
 	data ("./data/input/generated/" & f & ".dat");
 
 	commands "./src/commands/normalize.cmd";
+	
 	commands "./src/commands/determine_nonneg.cmd";
 	
 	solve;
 
-	if solve_result <> 'solved' then { 
+	if solve_result <> 'solved' then {
 		print f & " solve result: " & solve_result;
 
-		print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+		print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
 		', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) & ', ' & f >> ('./data/output/q2/results.txt');
 
 		close ('./data/output/q2/results.txt');
@@ -66,9 +68,9 @@ for {f in F} {
 		continue;
 	}
 
-	print  solve_result_num & ', ' & round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+	print  solve_result_num & ', ' & round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
 		', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) & ', ' & f >>  ('./data/output/q2/results.txt');
 		close ('./data/output/q2/results.txt');
-	
+
 	reset data;
 }

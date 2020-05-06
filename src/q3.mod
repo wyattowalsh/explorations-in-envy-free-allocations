@@ -6,8 +6,8 @@ set I; # set of all objects
 param v{P, I}; # value associated with person i, item j
 param cash;
 
-### VARIABLES ### 
-var z <=1, >=0; # variable for max p of p-envy-free present in the set people  
+### VARIABLES ###
+var z <=1, >=0; # variable for max p of p-envy-free present in the set people
 
 var x{P, I} binary; # indicator variable whether person i is assigned object j
 
