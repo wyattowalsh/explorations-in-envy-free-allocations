@@ -1,0 +1,67 @@
+### Commands To Reset Modeling and Solver Environment ###
+reset; # resets AMPL environment
+reset options; # resets all options in AMPL and solver
+
+### Commands To Change Modeling and Solver Options ###
+option solver '/Applications/ampl_macosx64/cplex'; # specifies local location of solver
+option show_stats 0; # limits output
+option display_1col 0; # forces output format to be in matrix form
+option solver_msg 0; # limits output
+# callback for solver to accept most recent feasible soln if solving for more than 15 minutes
+option cplex_options 'repeatpresolve=2  populate=1 poolreplace=1 pooldual=1 mipbasis=0 fpheur = 0 varsel = 3 mipcuts = 1 boundstr =0 coeffreduce = 3 timelimit=300'; 
+
+### Commands To Run Instances Of Interest ###
+
+# define set of data files for solving (data files names are these numbers with file extension)
+set F = 1 .. 400; 
+
+model './src/q4/upper_bound.mod'; # invokes model of interest
+
+param pVSums{P}; # intermediary parameter necessary for normalization  
+param numObjectsAllocated;
+param values{P,I};
+param topChoice;
+set rounds;
+set v_argmin ordered;
+# print output file header to file
+print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' & 
+'|P|, |I|, fileNumber' >  ('./data/output/q4/upper_bound_start_soln_tuned_results.txt');
+
+close ('./data/output/q4/upper_bound_start_soln_tuned_results.txt'); # close file 
+
+for {f in F} { # loop over all files defined by set defined above
+
+	data ("./data/input/generated/" & f & ".dat"); # evoke associated data file
+
+	commands "./src/commands/normalize.cmd"; # calls command file to normalize data
+	commands "./src/commands/round_robin.cmd"; # calls command file to run round robin pre-allocation
+
+	solve; # solves model of interest with associated data for this loop
+
+	if solve_result <> 'solved' then {  # if there is a result that isn't solved 
+
+		print f & " solve result: " & solve_result; # display file number and result on command line
+
+		# print solve result number, optimized envy value, iteration solve time, total solve time
+		# number of people, number of items, and file number to same file as printed to above
+		print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+		', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) & 
+		', ' & f >> ('./data/output/q4/upper_bound_start_soln_tuned_results.txt');
+
+		close ('./data/output/q4/upper_bound_start_soln_tuned_results.txt'); # close file
+
+		reset data; # only resets data
+
+		continue; # goes on to next file
+	}
+
+	# print solve result number, optimized envy value, iteration solve time, total solve time
+	# number of people, number of items, and file number to same file as printed to above
+	print  solve_result_num & ', ' & round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+		', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) & 
+		', ' & f >>  ('./data/output/q4/upper_bound_start_soln_tuned_results.txt');
+
+	close ('./data/output/q4/upper_bound_start_soln_tuned_results.txt'); # close file
+	
+	reset data; # only resets data
+}

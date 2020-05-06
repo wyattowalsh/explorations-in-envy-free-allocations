@@ -1,0 +1,64 @@
+# This is the run file for problem 1 
+
+# reset everything to start fresh
+reset;
+reset options;
+option solver '/Applications/ampl_macosx64/cplex'; 
+
+option show_stats 0;
+option display_1col 0; 
+option solver_msg 0;
+option cplex_options 'timelimit=300';
+
+# declare set for which files are going to be read and parameters to hold variables of interest
+set F = 1 .. 400;
+set CASH = (0.00625 .. 0.25 by 0.00625) union (0.4 .. 1 by 0.2);
+# value of goods is between 0 & 1. Their value is 10000 multiplied by this proportion
+# thus cash should be the number of items * 0.5 (E[]) 
+model './src/q3.mod';
+
+data "./data/input/simple.dat"; 
+
+let cash := 0.3;
+
+solve;
+
+display solve_result, cash, {p in P, i in I} x[p,i], 
+{p in P} cashProportion[p], round(z,4) > ('./data/output/q3/simple.txt');
+close ('./data/output/q3/simple.txt');
+
+reset data;
+
+print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' & 
+'|P|, |I|, cash,  fileNumber' >  ('./data/output/q3/results.txt');
+close ('./data/output/q3/results.txt');
+
+for {f in F} {
+	data ("./data/input/generated/" & f & ".dat");
+	for {c in CASH} {
+		let cash := c;
+		solve;
+		if solve_result <> 'solved' then { 
+			print f & " solve result: " & solve_result;
+
+			print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+			', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) & 
+			', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results.txt');
+
+			close ('./data/output/q3/results.txt');
+
+			reset data cash;
+
+			continue;
+		}
+
+		print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) & 
+			', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) & 
+			', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results.txt');
+		
+		close ('./data/output/q3/results.txt');
+		
+		reset data cash;
+	}
+	reset data;
+}

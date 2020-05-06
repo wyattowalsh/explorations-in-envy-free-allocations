@@ -1,0 +1,11 @@
+reset;
+
+# include 'src/q1.run';
+include 'src/q2.run';
+include 'src/q3.run';
+include 'src/q4/start_soln.run';
+include 'src/q4/start_soln_tuned.run';
+include 'src/q4/upper_bound.run';
+include 'src/q4/upper_bound_start_soln.run';
+include 'src/q4/upper_bound_start_soln_tuned.run';
+include 'src/q4/upper_bound_tuned.run';

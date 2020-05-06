@@ -1,0 +1,10 @@
+solve_result = solved
+
+x[p,i] [*,*]
+:   1   2    :=
+1   0   1
+2   1   0
+;
+
+round(z, 4) = 0
+
