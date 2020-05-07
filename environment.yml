@@ -1,4 +1,4 @@
-name: ieor-169-project
+name: explorations-in-envy-free-allocations
 channels:
   - conda-forge
   - defaults
@@ -13,3 +13,8 @@ dependencies:
   - seaborn
   - matplotlib
   - isort
+  - yapf
+  - nbdime
+  - pip
+  - pip:
+    - imgkit
