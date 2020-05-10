@@ -2,6 +2,8 @@ name: explorations-in-envy-free-allocations
 channels:
   - conda-forge
   - defaults
+  - http://conda.anaconda.org/gurobi
+  - r
 dependencies:
   - python
   - ipykernel
@@ -15,6 +17,16 @@ dependencies:
   - isort
   - yapf
   - nbdime
+  - ipywidgets
+  - amplpy
+  - gurobi
+  - plotly
+  - basemap
+  - ipympl
+  - psutil
+  - plotly-orca
   - pip
   - pip:
     - imgkit
+    - coinor.grumpy
+    - xdot==0.6

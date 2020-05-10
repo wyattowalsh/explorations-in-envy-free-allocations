@@ -3,7 +3,7 @@
 # reset everything to start fresh
 reset;
 reset options;
-option solver '/Users/chrislandgrebe/Desktop/ampl_macosx64/cplex';
+option solver '/Applications/ampl_macosx64/cplex';
 
 option show_stats 0;
 option display_1col 0;
@@ -12,7 +12,7 @@ option cplex_options 'timelimit=300';
 
 # declare set for which files are going to be read and parameters to hold variables of interest
 set F = 1 .. 400;
-set CASH = (0.00625 .. 0.25 by 0.00625) union (0.4 .. 1 by 0.2);
+set CASH = (0.05 .. 0.3 by 0.05) union (0.4 .. 1 by 0.2);
 # value of goods is between 0 & 1. Their value is 10000 multiplied by this proportion
 # thus cash should be the number of items * 0.5 (E[]) 
 model './src/q3.mod';

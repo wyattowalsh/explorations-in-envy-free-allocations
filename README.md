@@ -1,29 +1,61 @@
 # IEOR 169 Project
 
 ## Contents:
- - [Useful Links and Tools](#useful-links-and-tools) 
  - [Explanation of Repository Contents](#explanation-of-repository-contents)
+ - [Useful Links and Tools](#useful-links-and-tools) 
+ - [Instructions for Usage](#instructions-for-usage)
+     + [Establishing Virtual Environment](#establishing-virtual-environment)
+     + []
  - [Review of Terminal Usage](#review-of-terminal-usage)
  - [Review of Git Usage](#review-of-git-usage)
  - [Review of Virtual Environment Usage](#review-of-virtual-environment-usage)
  - [Summary of Instructions for Usage](#summary-of-instructions-for-usage)
 
 ---
+## Explanation of Repository Contents
+.
+├── README.md
+├── data
+│   ├── input
+│   │   └── generated
+│   └── output
+│       ├── q1
+│       ├── q2
+│       ├── q3
+│       └── q4
+├── environment.yml
+├── src
+│   ├── all.run
+│   ├── commands
+│   │   ├── determine_nonneg.cmd
+│   │   ├── normalize.cmd
+│   │   └── round_robin.cmd
+│   ├── data.run
+│   ├── project_nb.ipynb
+│   ├── q1.mod
+│   ├── q1.run
+│   ├── q2.mod
+│   ├── q2.run
+│   ├── q3.mod
+│   ├── q3.run
+│   └── q4
+│       ├── start_soln.run
+│       ├── start_soln_tuned.run
+│       ├── upper_bound.mod
+│       ├── upper_bound.run
+│       ├── upper_bound_start_soln.run
+│       ├── upper_bound_start_soln_tuned.run
+│       └── upper_bound_tuned.run
+└── visualizations
+    ├── q1_results.png
+    └── q1_summary.png
+
 ## Useful Links and Tools
 |   Resource Type   |   Resource   |                                                          Link/Notes                                                         |
 |:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
 | File Sharing      | Google Drive | https://drive.google.com/drive/u/1/folders/1MAU4RUpDyCGlSiMVp7yxfcbrlfZenkNzhttps://github.com/wyattowalsh/ieor-169-project |
 | Version Control   | Github       | Private repo                                                                                                                |
 | Document Creation | Overleaf     | Private project  
-
-## Explanation of Repository Contents
-
-| Directory/File Name      | Contents  |
-| ------------- | -----|
-| generate_data.ipynb    | Juypter Python Notebook for data generation|
-| visualize.ipynb   |   Jupyter Python Notebook for visualization|
-| ieor-169-project.yml | Environment file |
-| .gitignore | File instructing which directories or files Git should ignore |
 
 ## Review of Terminal Usage
 
