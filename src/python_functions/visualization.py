@@ -75,10 +75,10 @@ def tabular_statistics(rel_path_to_results,
     if save:
         html = grouped.render()
         imgkit.from_string(html,
-                           '../visualizations/{}_summary.png'.format(name))
+                           './visualizations/{}_summary.png'.format(name))
         html = results.render()
         imgkit.from_string(html,
-                           '../visualizations/{}_results.png'.format(name))
+                           './visualizations/{}_results.png'.format(name))
     return results.data, results, grouped
 
 def create_bar_plot(data, type_of, name=None, save=False):
@@ -106,7 +106,7 @@ def create_bar_plot(data, type_of, name=None, save=False):
             to_save = "time"
         else:
             to_save = 'envy'
-        plt.savefig("../visualizations/barcharts/{}_{}".format(name, to_save),
+        plt.savefig("./visualizations/barcharts/{}_{}".format(name, to_save),
                     dpi=900,
                     bbox_inches='tight')
     return g
@@ -163,7 +163,7 @@ def plot_scatter(data, name, save=False):
     f.subplots_adjust(top=0.9)
 
     if save:
-        f.savefig("../visualizations/scatterplots/{}".format(name),
+        f.savefig("./visualizations/scatterplots/{}".format(name),
                   dpi=900,
                   bbox_inches='tight',
                   bbox_extra_artists=[st])
@@ -181,7 +181,7 @@ def heatmap(data, type_of, name=None, save=False):
             to_save = "time"
         else:
             to_save = 'envy'
-        p.get_figure().savefig("../visualizations/heatmaps/{}_{}".format(
+        p.get_figure().savefig("./visualizations/heatmaps/{}_{}".format(
             name, to_save),
                                dpi=900,
                                bbox_inches='tight')
@@ -202,7 +202,7 @@ def parallel_categories(data, type_of, name=None, save=False):
             to_save = "time"
         else:
             to_save = 'envy'
-        fig.write_image("../visualizations/parallelcategories/{}_{}".format(
+        fig.write_image("./visualizations/parallelcategories/{}_{}.png".format(
             name, to_save),
                         format='png')
     return fig
