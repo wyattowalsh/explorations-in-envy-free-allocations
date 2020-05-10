@@ -1,7 +1,9 @@
 # IEOR 169 Project
-https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations.git/master?filepath=report_np.ipymb
+https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations.git/master?filepath=report_np.ipymb)
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb)
+
 
 ## Contents:
  - [Explanation of Repository Contents](#explanation-of-repository-contents)
