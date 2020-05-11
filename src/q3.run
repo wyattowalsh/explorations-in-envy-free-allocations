@@ -11,54 +11,56 @@ option solver_msg 0;
 option cplex_options 'timelimit=300';
 
 # declare set for which files are going to be read and parameters to hold variables of interest
-set F = 1 .. 400;
-set CASH = (0.05 .. 0.3 by 0.05) union (0.4 .. 1 by 0.2);
+set F = {1 .. 10  by 1} union {21 .. 30  by 1} union {41 .. 50  by 1} union {61 .. 70  by 1} union
+{81 .. 90  by 1} union {101 .. 110  by 1} union {121 .. 130  by 1} union {141 .. 150  by 1} union
+{161 .. 170  by 1} union {181 .. 190  by 1} ;
+set CASH = {0.05 .. 0.3  by .05} union {0.4 .. 1 by 0.2};
 # value of goods is between 0 & 1. Their value is 10000 multiplied by this proportion
-# thus cash should be the number of items * 0.5 (E[]) 
+# thus cash should be the number of items * 00.5 (E[])
 model './src/q3.mod';
 
-data './data/input/simple.dat';
+#data './data/input/simple.dat';
 
-let cash := 0.3;
+#let cash := 0.3;
 
-solve;
+#solve;
 
-display solve_result, cash, {p in P, i in I} x[p,i], 
-{p in P} cashProportion[p], round(z,4) > ('./data/output/q3/simple.txt');
-close ('./data/output/q3/simple.txt');
+#display solve_result, cash, {p in P, i in I} x[p,i],
+#{p in P} cashProportion[p], round(z,4) > ('./data/output/q3/simple.txt');
+#close ('./data/output/q3/simple.txt');
 
-reset data cash v P I;
+#reset data cash v P I;
 
 print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' &
-'|P|, |I|, cash,  fileNumber' >  ('./data/output/q3/results.txt');
+'|P|, |I|, cash,  fileNumber' >  ('./data/output/q3/results.txt');
 close ('./data/output/q3/results.txt');
 
 for {f in F} {
-	data ("./data/input/generated/" & f & ".dat");
-	for {c in CASH} {
-		let cash := c;
-		solve;
-		if solve_result <> 'solved' then {
-			print f & " solve result: " & solve_result;
+data ("./data/input/generated/" & f & ".dat");
+for {c in CASH} {
+let cash := c;
+solve;
+if solve_result <> 'solved' then {
+print f & " solve result: " & solve_result;
 
-			print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
-			', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) &
-			', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results.txt');
+print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
+', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) &
+', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results.txt');
 
-			close ('./data/output/q3/results.txt');
+close ('./data/output/q3/results.txt');
 
-			reset data cash;
+reset data cash;
 
-			continue;
-		}
+continue;
+}
 
-		print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
-			', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) &
-			', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results.txt');
-		
-		close ('./data/output/q3/results.txt');
+print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
+', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) &
+', ' & round(cash * 1000,4) & ', ' & f >> ('./data/output/q3/results.txt');
 
-		reset data cash;
-	}
-	reset data;
+close ('./data/output/q3/results.txt');
+
+reset data cash;
+}
+reset data;
 }

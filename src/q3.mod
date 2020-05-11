@@ -11,7 +11,7 @@ var z <=1, >=0; # variable for max p of p-envy-free present in the set people
 
 var x{P, I} binary; # indicator variable whether person i is assigned object j
 
-var cashProportion{P} <=1;
+var cashProportion{P} <=1, >=0;
 
 ### OBJECTIVE FUNCTION ###
 minimize maxPEnvyFree: z; # minimizing z which is the greatest envy value across all people
