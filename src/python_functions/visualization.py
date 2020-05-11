@@ -246,6 +246,7 @@ def parallel_categories(data, type_of, name=None, save=False):
         return fig
 
 def scatter_4d(data, type_of, name=None, save=False):
+    plt.close()
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     cash = [50, 100, 150, 200, 250, 300, 400, 600, 800]
@@ -273,4 +274,4 @@ def scatter_4d(data, type_of, name=None, save=False):
             name, to_save),
             dpi=300,
             bbox_inches='tight')
-    return ax
+    return 

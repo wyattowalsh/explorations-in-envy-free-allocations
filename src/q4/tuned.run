@@ -13,7 +13,7 @@ option cplex_options 'repeatpresolve=2  populate=1 poolreplace=1 pooldual=1 mipb
 ### Commands To Run Instances Of Interest ###
 
 # define set of data files for solving (data files names are these numbers with file extension)
-set F = 356 .. 400; 
+set F = 384 .. 400; 
 
 model './src/q1.mod'; # invokes model of interest
 
