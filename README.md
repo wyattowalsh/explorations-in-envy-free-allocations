@@ -23,43 +23,69 @@ https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/mas
 
 ---
 ## Explanation of Repository Contents
+```
 .
 ├── README.md
 ├── data
-│   ├── input
-│   │   └── generated
-│   └── output
-│       ├── q1
-│       ├── q2
-│       ├── q3
-│       └── q4
+│   ├── input
+│   │   └── generated
+│   │       └── q3
+│   └── output
+│       ├── q1
+│       │   ├── larger.txt
+│       │   ├── results.txt
+│       │   └── simple.txt
+│       ├── q2
+│       │   ├── larger.txt
+│       │   ├── results.txt
+│       │   └── simple.txt
+│       ├── q3
+│       │   ├── results.txt
+│       │   ├── results_larger.txt
+│       │   └── simple.txt
+│       └── q4
+│           ├── q1_tuned_results.txt
+│           ├── start_soln_results.txt
+│           ├── start_soln_tuned_results.txt
+│           ├── upper_bound_results.txt
+│           ├── upper_bound_start_soln_results.txt
+│           └── upper_bound_tuned_results.txt
 ├── environment.yml
+├── report_nb.ipynb
 ├── src
-│   ├── all.run
-│   ├── commands
-│   │   ├── determine_nonneg.cmd
-│   │   ├── normalize.cmd
-│   │   └── round_robin.cmd
-│   ├── data.run
-│   ├── project_nb.ipynb
-│   ├── q1.mod
-│   ├── q1.run
-│   ├── q2.mod
-│   ├── q2.run
-│   ├── q3.mod
-│   ├── q3.run
-│   └── q4
-│       ├── start_soln.run
-│       ├── start_soln_tuned.run
-│       ├── upper_bound.mod
-│       ├── upper_bound.run
-│       ├── upper_bound_start_soln.run
-│       ├── upper_bound_start_soln_tuned.run
-│       └── upper_bound_tuned.run
+│   ├── commands
+│   │   ├── determine_nonneg.cmd
+│   │   ├── normalize.cmd
+│   │   └── round_robin.cmd
+│   ├── data.run
+│   ├── python_functions
+│   │   ├── utilities.py
+│   │   └── visualization.py
+│   ├── q1.mod
+│   ├── q1.run
+│   ├── q2.mod
+│   ├── q2.run
+│   ├── q3.mod
+│   ├── q3.run
+│   ├── q3_larger.run
+│   ├── q4
+│   │   ├── start_soln.run
+│   │   ├── start_soln_tuned.run
+│   │   ├── tuned.run
+│   │   ├── upper_bound.mod
+│   │   ├── upper_bound.run
+│   │   ├── upper_bound_start_soln.run
+│   │   ├── upper_bound_start_soln_tuned.run
+│   │   └── upper_bound_tuned.run
+│   └── r_nb.ipynb
 └── visualizations
-    ├── q1_results.png
-    └── q1_summary.png
-
+    ├── 4dscatters
+    ├── barcharts
+    ├── heatmaps
+    ├── parallelcategories
+    ├── scatterplots
+    └── surfaceplots
+```
 ## Useful Links and Tools
 |   Resource Type   |   Resource   |                                                          Link/Notes                                                         |
 |:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
