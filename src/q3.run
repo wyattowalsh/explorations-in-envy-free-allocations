@@ -17,17 +17,17 @@ set CASH = (0.05 .. 0.3 by 0.05) union (0.4 .. 1 by 0.2); #(0.05 .. 0.3 by 0.05
 # thus cash should be the number of items * 00.5 (E[])
 model './src/q3.mod';
 
-# data './data/input/simple.dat';
+data './data/input/simple.dat';
 
-# let cash := 0.3;
+let cash := 0.3;
 
-# solve;
+solve;
 
-# display solve_result, cash, {p in P, i in I} x[p,i],
-# {p in P} cashProportion[p], round(z,4) > ('./data/output/q3/simple.txt');
-# close ('./data/output/q3/simple.txt');
+display solve_result, cash, {p in P, i in I} x[p,i],
+{p in P} cashProportion[p], round(z,4) > ('./data/output/q3/simple.txt');
+close ('./data/output/q3/simple.txt');
 
-# reset data cash v P I;
+reset data cash v P I;
 
 print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' & '|P|, |I|, cash, fileNumber' > ('./data/output/q3/results.txt');
 
