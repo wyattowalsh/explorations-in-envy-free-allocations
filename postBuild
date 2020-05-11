@@ -1,11 +1,1 @@
-#!/bin/sh
-jupyter contrib nbextension install --user --overwrite
-jupyter contrib nbextension install table_beautifier --overwrite
-jupyter contrib nbextension install init_cell --overwrite
-jupyter contrib nbextension install spellchecker --overwrite
-jupyter contrib nbextension install toggle_all_line_numbers --overwrite
-jupyter nbextension enable --py widgetsnbextension
-jupyter nbextension enable --py table_beautifier/main
-jupyter nbextension enable --py init_cell/main
-jupyter nbextension enable --py spellchecker/main
-jupyter nbextension enable --py toggle_all_line_numbers/main
+
