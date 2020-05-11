@@ -1,11 +1,11 @@
 #!/bin/sh
-jupyter contrib nbextension install --user
-jupyter contrib nbextension install table_beautifier --py --overwrite
-jupyter contrib nbextension install init_cell --py --overwrite
-jupyter contrib nbextension install spellchecker --py --overwrite
-jupyter contrib nbextension install toggle_all_line_numbers --py --overwrite
-jupyter contrib nbextension install hide_input --py --overwrite
-jupyter contrib nbextension install livemdpreview --py --overwrite
+jupyter contrib nbextension install --user --overwrite
+jupyter contrib nbextension install table_beautifier --overwrite
+jupyter contrib nbextension install init_cell --overwrite
+jupyter contrib nbextension install spellchecker --overwrite
+jupyter contrib nbextension install toggle_all_line_numbers --overwrite
+jupyter contrib nbextension install hide_input --overwrite
+jupyter contrib nbextension install livemdpreview  --overwrite
 jupyter nbextension enable --py widgetsnbextension
 jupyter nbextension enable --py table_beautifier/main
 jupyter nbextension enable --py init_cell/main
