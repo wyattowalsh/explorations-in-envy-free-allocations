@@ -5,5 +5,4 @@ jupyter nbextension enable --py table_beautifier/main
 jupyter nbextension enable --py init_cell/main
 jupyter nbextension enable --py spellchecker/main
 jupyter nbextension enable --py toggle_all_line_numbers/main
-jupyter nbextension enable --py livemdpreview/livemdpreview
 jupyter nbextension enable --py hide_input/main
