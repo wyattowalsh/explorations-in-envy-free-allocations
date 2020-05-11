@@ -1,0 +1,8 @@
+#!/bin/sh
+jupyter contrib nbextension install --user
+jupyter nbextension enable --py widgetsnbextension
+jupyter nbextension enable --py table_beautifier
+jupyter nbextension enable --py init_cell
+jupyter nbextension enable --py Spellchecker
+jupyter nbextension enable --py toggle_all_line_numbers
+jupyter nbextension enable --py livemdpreview
