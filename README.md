@@ -23,43 +23,172 @@ https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/mas
 
 ---
 ## Explanation of Repository Contents
+```
 .
 ├── README.md
 ├── data
-│   ├── input
-│   │   └── generated
-│   └── output
-│       ├── q1
-│       ├── q2
-│       ├── q3
-│       └── q4
+│   ├── input
+│   │   ├── generated
+│   │   │   ├── 1-400.dat
+│   │   │   └── q3
+│   │   │       └── 1.dat -> 100.dat
+│   │   ├── larger.dat
+│   │   └── simple.dat
+│   ├── lp_files
+│   │   ├── q1
+│   │   │   └── 1.mps -> 400.mps
+│   │   ├── q2
+│   │   │   └── 1.mps -> 400.mps
+│   │   └── q3
+│   │       └── 10_0.lp -> 190_9.lp 
+│   ├── mps_files
+│   │   ├── q1
+│   │   │   └── 1.lp -> 400.lp
+│   │   ├── q2
+│   │   │   └── 1.lp -> 400.lp
+│   │   └── q3
+│   │       └── 10_0.mps -> 190_9.mps
+│   └── output
+│       ├── q1
+│       │   ├── larger.txt
+│       │   ├── results.txt
+│       │   └── simple.txt
+│       ├── q2
+│       │   ├── larger.txt
+│       │   ├── results.txt
+│       │   └── simple.txt
+│       ├── q3
+│       │   ├── results.txt
+│       │   ├── results_larger.txt
+│       │   └── simple.txt
+│       └── q4
+│           ├── q1_tuned_results.txt
+│           ├── start_soln_results.txt
+│           ├── start_soln_tuned_results.txt
+│           ├── upper_bound_results.txt
+│           ├── upper_bound_start_soln_results.txt
+│           └── upper_bound_tuned_results.txt
 ├── environment.yml
+├── report_nb.ipynb
 ├── src
-│   ├── all.run
-│   ├── commands
-│   │   ├── determine_nonneg.cmd
-│   │   ├── normalize.cmd
-│   │   └── round_robin.cmd
-│   ├── data.run
-│   ├── project_nb.ipynb
-│   ├── q1.mod
-│   ├── q1.run
-│   ├── q2.mod
-│   ├── q2.run
-│   ├── q3.mod
-│   ├── q3.run
-│   └── q4
-│       ├── start_soln.run
-│       ├── start_soln_tuned.run
-│       ├── upper_bound.mod
-│       ├── upper_bound.run
-│       ├── upper_bound_start_soln.run
-│       ├── upper_bound_start_soln_tuned.run
-│       └── upper_bound_tuned.run
+│   ├── commands
+│   │   ├── determine_nonneg.cmd
+│   │   ├── normalize.cmd
+│   │   └── round_robin.cmd
+│   ├── data.run
+│   ├── python_functions
+│   │   ├── utilities.py
+│   │   ├── _init_.py
+│   │   └── visualization.py
+│   ├── q1.mod
+│   ├── q1.run
+│   ├── q2.mod
+│   ├── q2.run
+│   ├── q3.mod
+│   ├── q3.run
+│   ├── q3_larger.run
+│   ├── q4
+│   │   ├── start_soln.run
+│   │   ├── start_soln_tuned.run
+│   │   ├── tuned.run
+│   │   ├── upper_bound.mod
+│   │   ├── upper_bound.run
+│   │   ├── upper_bound_start_soln.run
+│   │   ├── upper_bound_start_soln_tuned.run
+│   │   └── upper_bound_tuned.run
+│   └── r_nb.ipynb
 └── visualizations
-    ├── q1_results.png
-    └── q1_summary.png
-
+    ├── 4dscatters
+    │   ├── aefs_envy.pdf
+    │   ├── aefs_envy.png
+    │   ├── aefs_time.pdf 
+    │   └── aefs_time.png
+    ├── barcharts
+    │   ├── aef1_envy.pdf
+    │   ├── aef1_envy.png
+    │   ├── aef1_time.pdf 
+    │   ├── aef1_time.png
+    │   ├── aef_envy.png
+    │   ├── aef_envy.pdf 
+    │   ├── aef_ss_envy.pdf
+    │   ├── aef_ss_envy.png
+    │   ├── aef_ss_time.pdf 
+    │   ├── aef_ss_time.png
+    │   ├── aef_time.pdf
+    │   ├── aef_time.png
+    │   ├── aef_ub_envy.pdf
+    │   ├── aef_ub_envy.png
+    │   ├── aef_ub_ss_envy.pdf
+    │   ├── aef_ub_ss_envy.png
+    │   ├── aef_ub_ss_time.pdf 
+    │   ├── aef_ub_ss_time.png
+    │   ├── aef_ub_time.pdf
+    │   ├── aef_ub_time.png 
+    │   ├── aefs_envy.pdf
+    │   ├── aefs_envy.png
+    │   ├── aefs_time.pdf 
+    │   └── aefs_time.png
+    ├── heatmaps
+    │   ├── aef1_envy.pdf
+    │   ├── aef1_envy.png
+    │   ├── aef1_time.pdf 
+    │   ├── aef1_time.png
+    │   ├── aef_envy.png
+    │   ├── aef_envy.pdf 
+    │   ├── aef_ss_envy.pdf
+    │   ├── aef_ss_envy.png
+    │   ├── aef_ss_time.pdf 
+    │   ├── aef_ss_time.png
+    │   ├── aef_time.pdf
+    │   ├── aef_time.png
+    │   ├── aef_ub_envy.pdf
+    │   ├── aef_ub_envy.png
+    │   ├── aef_ub_ss_envy.pdf
+    │   ├── aef_ub_ss_envy.png
+    │   ├── aef_ub_ss_time.pdf 
+    │   ├── aef_ub_ss_time.png
+    │   ├── aef_ub_time.pdf
+    │   └── aef_ub_time.png 
+    ├── parallelcategories
+    │   ├── aef1_envy.pdf
+    │   ├── aef1_envy.png
+    │   ├── aef1_time.pdf 
+    │   ├── aef1_time.png
+    │   ├── aef_envy.png
+    │   ├── aef_envy.pdf 
+    │   ├── aef_ss_envy.pdf
+    │   ├── aef_ss_envy.png
+    │   ├── aef_ss_time.pdf 
+    │   ├── aef_ss_time.png
+    │   ├── aef_time.pdf
+    │   ├── aef_time.png
+    │   ├── aef_ub_envy.pdf
+    │   ├── aef_ub_envy.png
+    │   ├── aef_ub_ss_envy.pdf
+    │   ├── aef_ub_ss_envy.png
+    │   ├── aef_ub_ss_time.pdf 
+    │   ├── aef_ub_ss_time.png
+    │   ├── aef_ub_time.pdf
+    │   ├── aef_ub_time.png 
+    │   ├── aefs_envy.pdf
+    │   ├── aefs_envy.png
+    │   ├── aefs_time.pdf 
+    │   └── aefs_time.png
+    ├── scatterplots
+    │   ├── aef.pdf
+    │   ├── aef.png
+    │   ├── aef1.pdf 
+    │   ├── aef1.png
+    │   ├── aef_ss.pdf
+    │   ├── aef_ss.png 
+    │   ├── aef_ub.pdf
+    │   ├── aef_ub.png
+    │   ├── aef_ub_ss.pdf 
+    │   ├── aef_ub_ss.png
+    │   ├── aefs.pdf
+    │   └── aefs.png
+    └── surfaceplots
+```
 ## Useful Links and Tools
 |   Resource Type   |   Resource   |                                                          Link/Notes                                                         |
 |:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
