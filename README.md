@@ -1,4 +1,4 @@
-# IEOR 169 
+# Exploring Fair Division Problems
 #overall repo
 https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations.git/master
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb)
