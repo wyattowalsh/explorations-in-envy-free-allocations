@@ -28,8 +28,26 @@ https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/mas
 ├── README.md
 ├── data
 │   ├── input
-│   │   └── generated
-│   │       └── q3
+│   │   ├── generated
+│   │   │   ├── 1-400.dat
+│   │   │   └── q3
+│   │   │       └── 1.dat -> 100.dat
+│   │   ├── larger.dat
+│   │   └── simple.dat
+│   ├── lp_files
+│   │   ├── q1
+│   │   │   └── 1.mps -> 400.mps
+│   │   ├── q2
+│   │   │   └── 1.mps -> 400.mps
+│   │   └── q3
+│   │       └── 10_0.lp -> 190_9.lp 
+│   ├── mps_files
+│   │   ├── q1
+│   │   │   └── 1.lp -> 400.lp
+│   │   ├── q2
+│   │   │   └── 1.lp -> 400.lp
+│   │   └── q3
+│   │       └── 10_0.mps -> 190_9.mps
 │   └── output
 │       ├── q1
 │       │   ├── larger.txt
@@ -60,6 +78,7 @@ https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/mas
 │   ├── data.run
 │   ├── python_functions
 │   │   ├── utilities.py
+│   │   ├── _init_.py
 │   │   └── visualization.py
 │   ├── q1.mod
 │   ├── q1.run
@@ -80,10 +99,94 @@ https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/mas
 │   └── r_nb.ipynb
 └── visualizations
     ├── 4dscatters
+    │   ├── aefs_envy.pdf
+    │   ├── aefs_envy.png
+    │   ├── aefs_time.pdf 
+    │   └── aefs_time.png
     ├── barcharts
+    │   ├── aef1_envy.pdf
+    │   ├── aef1_envy.png
+    │   ├── aef1_time.pdf 
+    │   ├── aef1_time.png
+    │   ├── aef_envy.png
+    │   ├── aef_envy.pdf 
+    │   ├── aef_ss_envy.pdf
+    │   ├── aef_ss_envy.png
+    │   ├── aef_ss_time.pdf 
+    │   ├── aef_ss_time.png
+    │   ├── aef_time.pdf
+    │   ├── aef_time.png
+    │   ├── aef_ub_envy.pdf
+    │   ├── aef_ub_envy.png
+    │   ├── aef_ub_ss_envy.pdf
+    │   ├── aef_ub_ss_envy.png
+    │   ├── aef_ub_ss_time.pdf 
+    │   ├── aef_ub_ss_time.png
+    │   ├── aef_ub_time.pdf
+    │   ├── aef_ub_time.png 
+    │   ├── aefs_envy.pdf
+    │   ├── aefs_envy.png
+    │   ├── aefs_time.pdf 
+    │   └── aefs_time.png
     ├── heatmaps
+    │   ├── aef1_envy.pdf
+    │   ├── aef1_envy.png
+    │   ├── aef1_time.pdf 
+    │   ├── aef1_time.png
+    │   ├── aef_envy.png
+    │   ├── aef_envy.pdf 
+    │   ├── aef_ss_envy.pdf
+    │   ├── aef_ss_envy.png
+    │   ├── aef_ss_time.pdf 
+    │   ├── aef_ss_time.png
+    │   ├── aef_time.pdf
+    │   ├── aef_time.png
+    │   ├── aef_ub_envy.pdf
+    │   ├── aef_ub_envy.png
+    │   ├── aef_ub_ss_envy.pdf
+    │   ├── aef_ub_ss_envy.png
+    │   ├── aef_ub_ss_time.pdf 
+    │   ├── aef_ub_ss_time.png
+    │   ├── aef_ub_time.pdf
+    │   └── aef_ub_time.png 
     ├── parallelcategories
+    │   ├── aef1_envy.pdf
+    │   ├── aef1_envy.png
+    │   ├── aef1_time.pdf 
+    │   ├── aef1_time.png
+    │   ├── aef_envy.png
+    │   ├── aef_envy.pdf 
+    │   ├── aef_ss_envy.pdf
+    │   ├── aef_ss_envy.png
+    │   ├── aef_ss_time.pdf 
+    │   ├── aef_ss_time.png
+    │   ├── aef_time.pdf
+    │   ├── aef_time.png
+    │   ├── aef_ub_envy.pdf
+    │   ├── aef_ub_envy.png
+    │   ├── aef_ub_ss_envy.pdf
+    │   ├── aef_ub_ss_envy.png
+    │   ├── aef_ub_ss_time.pdf 
+    │   ├── aef_ub_ss_time.png
+    │   ├── aef_ub_time.pdf
+    │   ├── aef_ub_time.png 
+    │   ├── aefs_envy.pdf
+    │   ├── aefs_envy.png
+    │   ├── aefs_time.pdf 
+    │   └── aefs_time.png
     ├── scatterplots
+    │   ├── aef.pdf
+    │   ├── aef.png
+    │   ├── aef1.pdf 
+    │   ├── aef1.png
+    │   ├── aef_ss.pdf
+    │   ├── aef_ss.png 
+    │   ├── aef_ub.pdf
+    │   ├── aef_ub.png
+    │   ├── aef_ub_ss.pdf 
+    │   ├── aef_ub_ss.png
+    │   ├── aefs.pdf
+    │   └── aefs.png
     └── surfaceplots
 ```
 ## Useful Links and Tools
