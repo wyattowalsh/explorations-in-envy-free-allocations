@@ -274,4 +274,5 @@ def scatter_4d(data, type_of, name=None, save=False):
             name, to_save),
             dpi=300,
             bbox_inches='tight')
+    plt.show()
     return 
