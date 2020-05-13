@@ -2,7 +2,8 @@
 #overall repo
 https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations.git/master
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb)
-Fair division problems are a significant class of problems with considerable multidisciplinaryinvolvement ranging from social science to computer science. Currently there exist many specificies of envy-freeness, applied to a multitude of scenarios, solved through assorted methodologies.  To guide the work in this project, three particular  definitions  of  envy-freeness  are  analyzed  for  a  particular  situation.   These  are envy-freeness, envy-freeness up to one item, and envy-freeness with the inclusion of a divisible subsidy in the form of a cash amount.  We apply these definitions to the situation where items are indivisible and valuations are both additive and normalized.  
+
+Fair division problems are a significant class of problems with considerable multidisciplinary involvement ranging from social science to computer science. Currently there exist many specificies of envy-freeness, applied to a multitude of scenarios, solved through assorted methodologies.  To guide the work in this project, three particular  definitions  of  envy-freeness  are  analyzed  for  a  particular  situation.   These  are envy-freeness, envy-freeness up to one item, and envy-freeness with the inclusion of a divisible subsidy in the form of a cash amount.  We apply these definitions to the situation where items are indivisible and valuations are both additive and normalized.  
 
  These three definitions were modeled in the AMPL programming language and then solved using the IBM CPLEX solver for two simple examples and a collection of generated data for different combinations of number of people and number of items to be allocated. 
  
@@ -10,6 +11,7 @@ Fair division problems are a significant class of problems with considerable mul
 
 #  Cloud-Hosted Interactive Notebook
 https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb
+
 Due to the extended nature of the included analysis and accompanying visualizations, the authors suggest to utilize the link found above to access the accompanying cloud-hosted interactive notebook for use while reading.  This notebook contains interactive plots as well as variables for the different results datasets.  Please note that this service typically takes a couple of minutes to initialize.  
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb)
