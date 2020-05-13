@@ -97,8 +97,13 @@ Summary of file tree above:
 |   Name   |   Type   |                                                          Description                                                         |
 |:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
 | data      | Folder | This folder is split into 'input' and 'output' and contain the input data files, in the form of a .dat and the output results from the CPLEX solver, in the form of .txt files.  |
-| environment.yml   | File       | This is a anaconda virtual envirronment replication file that ensures consistent versions of software packages.                                                                                                                  |
-| Document Creation | Overleaf     | Private project  
+| environment.yml   | File       | This is a anaconda virtual envirronment replication file that ensures consistent versions of software packages.|
+| file_tree.txt      | File | This is a .txt file of the above file tree  |
+| report_np.ipynb  | File       | This is a Jupyter Python Notebook that contains the results of solving the generated examples. This notebook also contains visualizations, both two-dimensional and three-dimensional, that should help to provide a better understanding of the results.          |
+| src| Folder     | Contains all source code for solving the examples.|
+| visualizations| Folder| A collection of the different visualizations created in the Jupyter Notebook in the form of .png files|
+
+
 ## Useful Links and Tools
 |   Resource Type   |   Resource   |                                                          Link/Notes                                                         |
 |:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
