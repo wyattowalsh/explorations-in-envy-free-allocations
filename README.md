@@ -93,6 +93,8 @@ Due to the extended nature of the included analysis and accompanying visualizati
     ├── scatterplots
     └── surfaceplots
 ```
+Summary of file tree above:
+
 ## Useful Links and Tools
 |   Resource Type   |   Resource   |                                                          Link/Notes                                                         |
 |:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
