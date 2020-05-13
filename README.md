@@ -4,7 +4,6 @@
  - [Useful Links and Tools](#useful-links-and-tools) 
  - [Instructions for Usage](#instructions-for-usage)
      + [Establishing Virtual Environment](#establishing-virtual-environment)
-     + []
  - [Review of Terminal Usage](#review-of-terminal-usage)
  - [Review of Git Usage](#review-of-git-usage)
  - [Review of Virtual Environment Usage](#review-of-virtual-environment-usage)
@@ -89,7 +88,7 @@ Due to the extended nature of the included analysis and accompanying visualizati
     ├── scatterplots
     └── surfaceplots
 ```
-Summary of file tree above:
+## Summary of file tree above:
 |   Name   |   Type   |                                                          Description                                                         |
 |:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
 | data      | Folder | This folder is split into 'input' and 'output' and contain the input data files, in the form of a .dat and the output results from the CPLEX solver, in the form of .txt files.  |
