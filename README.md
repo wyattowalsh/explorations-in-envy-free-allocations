@@ -94,7 +94,11 @@ Due to the extended nature of the included analysis and accompanying visualizati
     └── surfaceplots
 ```
 Summary of file tree above:
-
+|   Name   |   Type   |                                                          Description                                                         |
+|:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
+| data      | Folder | This folder is split into 'input' and 'output' and contain the input data files, in the form of a .dat and the output results from the CPLEX solver, in the form of .txt files.  |
+| Version Control   | Github       | Private repo                                                                                                                |
+| Document Creation | Overleaf     | Private project  
 ## Useful Links and Tools
 |   Resource Type   |   Resource   |                                                          Link/Notes                                                         |
 |:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
