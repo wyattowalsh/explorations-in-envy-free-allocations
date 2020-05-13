@@ -2,8 +2,11 @@
 #overall repo
 https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations.git/master
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb)
+Fair division problems are a significant class of problems with considerable multidisciplinaryinvolvement ranging from social science to computer science. Currently there exist many specificies of envy-freeness, applied to a multitude of scenarios, solved through assorted methodologies.  To guide the work in this project, three particular  definitions  of  envy-freeness  are  analyzed  for  a  particular  situation.   These  are envy-freeness, envy-freeness up to one item, and envy-freeness with the inclusion of a divisible subsidy in the form of a cash amount.  We apply these definitions to the situation where items are indivisible and valuations are both additive and normalized. 
+ These three definitions were modeled in the AMPL programming language and then solved using the IBM CPLEX solver for two simple examples and a collection of generated data for different combinations of number of people and number of items to be allocated. 
+ The results for the two simple examples serve to validate the accuracy of the formulationsa nd the results for the collection of generated data allow for analysis to be conducted on the complexity  of  these  problem  types.   Furthermore,  strategies  are  devised  and  implemented to reduce the runtime of the envy-freeness instance including:  upper-bounding the objective function, initializing CPLEX with a feasible starting solution, the combination of both upper-bounding the objective function and initializing CPLEX with a feasible starting solution, and finally tuning various CPLEX parameters.
 
-# nb specifically 
+#  Direct link to cloud-hosted interactive notebook for use while reading. 
 https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb
 
 
