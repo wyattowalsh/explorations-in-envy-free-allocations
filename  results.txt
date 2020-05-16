@@ -1,1 +1,0 @@
-solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, |P|, |I|, cash, fileNumber
