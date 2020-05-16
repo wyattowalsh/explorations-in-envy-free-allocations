@@ -1,0 +1,4 @@
+cutpass = 1
+probe = -1
+tunerepeat = 5
+varsel = 4

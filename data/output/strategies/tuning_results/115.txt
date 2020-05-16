@@ -1,0 +1,4 @@
+cutpass = 1
+heurfreq = 50
+tunerepeat = 5
+varsel = 4

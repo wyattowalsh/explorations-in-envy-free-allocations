@@ -4,6 +4,7 @@
 import imgkit
 import ipywidgets as widgets
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -89,38 +90,79 @@ def tabular_statistics(rel_path_to_results,
 
 
 def create_bar_plot(data, type_of, name=None, save=False):
-    data = data.loc[data['Number of Items'] %
-                    2 == 0].loc[data['Number of People'] % 2 == 0]
-    g = sns.catplot(x="Number of People",
-                    y=type_of,
-                    hue="Number of Items",
-                    data=data,
-                    height=10,
-                    aspect=2,
-                    kind="bar",
-                    palette=sns.color_palette("husl", 20),
-                    legend=False)
-    plt.legend(title="Number of Items", ncol=2, title_fontsize=24, fontsize=18)
-    g.set_ylabels("Log {}".format(type_of), fontsize=24)
-    g.set_xlabels("Number of People", fontsize=24)
-    g.ax.set_title("{} for Combinations of People and Items".format(type_of),
-                   fontsize=28)
-    g.set_yticklabels(g.ax.get_yticks(), size=18)
-    g.set_xticklabels(size=18)
-    if name != "aef1":
-        g.ax.set_yscale('log')
+    if name == 'aef1' and type_of == 'Allocation p-Envy-Free Value':
+            return
+    data1 = data.loc[data['Number of People'] <= 5]
+    data2 = data.loc[data['Number of People'] > 5].loc[data['Number of People'] <=10]
+    data3 = data.loc[data['Number of People'] >10].loc[data['Number of People'] <=15]
+    data4 = data.loc[data['Number of People'] > 15]
+    alldata = [data1, data2,data3,data4]
+    output = []
+    for i,plot in enumerate(alldata):
 
-    else:
-        g.ax.set_ylim(0, 1)
-    if save:
+        g = sns.catplot(x="Number of People",
+                        y=type_of,
+                        hue="Number of Items",
+                        data=plot,
+                        height=8,
+                        aspect=2,
+                        kind="bar",
+                        palette=sns.color_palette("husl", 20),
+                        legend=False, edgecolor='black',linewidth = 2.5)
+        plt.legend(title="Number of Items", ncol=1, title_fontsize=18, fontsize=14, loc='upper right', framealpha=0.8, bbox_to_anchor=(1.14, 0.95))
         if type_of == "Solver Elapsed Time":
-            to_save = "time"
+            g.set_ylabels("Log {} (s)".format(type_of), fontsize=20)
         else:
-            to_save = 'envy'
-        plt.savefig("./visualizations/barcharts/{}_{}".format(name, to_save),
-                    dpi=300,
-                    bbox_inches='tight')
-    return g
+            g.set_ylabels("Log {}".format(type_of), fontsize=20)
+        g.set_xlabels("Number of People", fontsize=24)
+        g.ax.set_title("{} for Combinations of People and Items".format(type_of),
+                       fontsize=28)
+        g.ax.set_yscale('log')
+        end = max(data[type_of])
+        g.ax.set_yticks(np.round(np.geomspace(0.0001, end,10),4))
+        g.set_yticklabels(g.ax.get_yticks(), size=18)
+        g.set_xticklabels(size=18)
+        if save:
+            if type_of == "Solver Elapsed Time":
+                to_save = "time"
+            else:
+                to_save = 'envy'
+            plt.savefig("./visualizations/barcharts/{}_{}_{}".format(name, to_save,i),
+                        dpi=300,
+                        bbox_inches='tight')
+        output.append(g)
+    return output
+
+    # g1 = sns.catplot(x="Number of People",
+    #                 y=type_of,
+    #                 hue="Number of Items",
+    #                 data=data2,
+    #                 height=12,
+    #                 aspect=5,
+    #                 kind="bar",
+    #                 palette=sns.color_palette("husl", 20),
+    #                 legend=False, edgecolor='black',linewidth = 2)
+    # plt.legend(title="Number of Items", ncol=2, title_fontsize=18, fontsize=14, loc='upper left')
+    # g1.set_ylabels("Log {}".format(type_of), fontsize=20)
+    # g1.set_xlabels("Number of People", fontsize=24)
+    # g1.ax.set_title("{} for Combinations of People and Items".format(type_of),
+    #                fontsize=28)
+    # g1.set_yticklabels(g1.ax.get_yticks(), size=18)
+    # g1.set_xticklabels(size=18)
+    # if name != "aef1":
+    #     g1.ax.set_yscale('log')
+
+    # else:
+    #     g1.ax.set_ylim(0, 1)
+    # if save:
+    #     if type_of == "Solver Elapsed Time":
+    #         to_save = "time"
+    #     else:
+    #         to_save = 'envy'
+    #     plt.savefig("./visualizations/barcharts/{}_{}2".format(name, to_save),
+    #                 dpi=300,
+    #                 bbox_inches='tight')
+    # return g,g1
 
 # def plot_3d(data, type_of):
 #     fig = plt.figure("{} Triangulated Surface Plot".format(type_of))
@@ -245,32 +287,57 @@ def parallel_categories(data, type_of, name=None, save=False):
             format='png')
         return fig
 
-def scatter_4d(data, type_of, name=None, save=False):
+def scatter_4d(data, name=None, save=False):
     plt.close()
+    type_of='Allocation p-Envy-Free Value'
+    type_of1 = "Solver Elapsed Time"
     fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    cash = [50, 100, 150, 200, 250, 300, 400, 600, 800]
-    for i, m in enumerate(['o', '^', 'v', '<', ">", '1', '+', 'x', 's']):
-        df_cash = data.loc[data['Subsidy Amount'] == cash[i]]
+    ax = Axes3D(fig)
+    fig1 = plt.figure()
+    ax1 = Axes3D(fig1)
+    cash = np.arange(50, 1201, 50)
+    for i, m in enumerate(cash):
+        df_cash = data.loc[data['Subsidy Amount'] == m].sample(n=25, random_state=1)
         ax.scatter(df_cash['Number of Items'],
                    df_cash['Number of People'],
                    df_cash[type_of],
-                   marker=m,
+                   s=(250/(i+1)),
                    label='${}'.format(cash[i]),
-                   alpha=0.5)
-
+                   alpha=0.6)
+        ax1.scatter(df_cash['Number of Items'],
+                   df_cash['Number of People'],
+                   df_cash[type_of1],
+                   s=(250/(i+1)),
+                   label='${}'.format(cash[i]),
+                   alpha=0.6)
     ax.set_xlabel('Number of Items')
     ax.set_ylabel('Number of People')
     ax.set_zlabel(type_of)
     ax.set_title("3D Scatter Plot of {} for Different Subsidy Values".format(
         type_of), fontsize=10)
-    plt.legend(bbox_to_anchor=(0, 0.8), loc="upper left", prop={'size': 6})
+    plt.legend(bbox_to_anchor=(0, 0.9), loc="upper left", prop={'size': 8})
+
+    ax1.set_xlabel('Number of Items')
+    ax1.set_ylabel('Number of People')
+    ax1.set_zlabel(type_of1)
+    ax1.set_title("3D Scatter Plot of {} for Different Subsidy Values".format(
+        type_of1), fontsize=10)
+    plt.legend(bbox_to_anchor=(0, 0.9), loc="upper left", prop={'size': 8})
     if save:
         if type_of == "Solver Elapsed Time":
             to_save = "time"
         else:
             to_save = 'envy'
         ax.get_figure().savefig("./visualizations/4dscatters/{}_{}".format(
+            name, to_save),
+            dpi=300,
+            bbox_inches='tight')
+    if save:
+        if type_of1 == "Solver Elapsed Time":
+            to_save = "time"
+        else:
+            to_save = 'envy'
+        ax1.get_figure().savefig("./visualizations/4dscatters/{}_{}".format(
             name, to_save),
             dpi=300,
             bbox_inches='tight')

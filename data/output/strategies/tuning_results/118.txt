@@ -1,0 +1,2 @@
+fraccuts = -1
+tunerepeat = 5

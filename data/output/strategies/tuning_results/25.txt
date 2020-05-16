@@ -1,0 +1,2 @@
+heurfreq = -1
+tunerepeat = 5

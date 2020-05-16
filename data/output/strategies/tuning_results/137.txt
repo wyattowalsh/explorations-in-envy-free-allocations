@@ -1,0 +1,3 @@
+heurfreq = 3
+rinsheur = 20
+tunerepeat = 5

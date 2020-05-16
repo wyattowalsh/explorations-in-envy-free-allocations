@@ -1,0 +1,4 @@
+backtrack = 0
+heurfreq = 100000
+rinsheur = 100000
+tunerepeat = 5

@@ -1,0 +1,3 @@
+mipalg = 1
+mipstartalg = 1
+tunerepeat = 5

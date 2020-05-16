@@ -1,0 +1,5 @@
+cutpass = -1
+heurfreq = -1
+probe = -1
+tunerepeat = 5
+varsel = 4

@@ -1,0 +1,31 @@
+### Commands To Reset Modeling and Solver Environment ###
+reset; # resets AMPL environment
+reset options; # resets all options in AMPL and solver
+
+### Commands To Change Modeling and Solver Options ###
+option solver '/Applications/ampl_macosx64/cplex'; # specifies local location of solver
+option show_stats 0; # limits output
+option display_1col 0; # forces output format to be in matrix form
+option solver_msg 0; # limits output
+# callback for solver to accept most recent feasible soln if solving for more than 15 minutes
+ 
+
+### Commands To Run Instances Of Interest ###
+
+# define set of data files for solving (data files names are these numbers with file extension)
+set F = 1 .. 175; 
+
+model './src/pEF.mod'; # invokes model of interest
+
+param pVSums{P}; # intermediary parameter necessary for normalization  
+
+for {f in F} { # loop over all files defined by set defined above
+	option cplex_options ('tunerepeat=5 tunefile= ./data/output/strategies/tuning_results/' & f & '.txt');
+	data ("./data/input/generated/" & f & ".dat"); # evoke associated data file
+
+	commands "./src/commands/normalize.cmd"; # calls command file to normalize data
+
+	solve; # solves model of interest with associated data for this loop
+
+	reset data; # only resets data
+}
