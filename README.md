@@ -1,25 +1,26 @@
 # Exploring Fair Division Problems
-#overall repo
-https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations.git/master
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb)
-
-# nb specifically 
-https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb
-
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/master?filepath=report_np.ipymb)
-
-
-## Contents:
+# Contents:
  - [Explanation of Repository Contents](#explanation-of-repository-contents)
  - [Useful Links and Tools](#useful-links-and-tools) 
  - [Instructions for Usage](#instructions-for-usage)
      + [Establishing Virtual Environment](#establishing-virtual-environment)
-     + []
  - [Review of Terminal Usage](#review-of-terminal-usage)
  - [Review of Git Usage](#review-of-git-usage)
  - [Review of Virtual Environment Usage](#review-of-virtual-environment-usage)
  - [Summary of Instructions for Usage](#summary-of-instructions-for-usage)
+
+# Project Summary
+Fair division problems are a significant class of problems with considerable multidisciplinary involvement ranging from social science to computer science. Currently there exist many specificies of envy-freeness, applied to a multitude of scenarios, solved through assorted methodologies.  To guide the work in this project, three particular  definitions  of  envy-freeness  are  analyzed  for  a  particular  situation.   These  are envy-freeness, envy-freeness up to one item, and envy-freeness with the inclusion of a divisible subsidy in the form of a cash amount.  We apply these definitions to the situation where items are indivisible and valuations are both additive and normalized.  
+
+ These three definitions were modeled in the AMPL programming language and then solved using the IBM CPLEX solver for two simple examples and a collection of generated data for different combinations of number of people and number of items to be allocated. 
+ 
+ The results for the two simple examples serve to validate the accuracy of the formulationsa nd the results for the collection of generated data allow for analysis to be conducted on the complexity  of  these  problem  types.   Furthermore,  strategies  are  devised  and  implemented to reduce the runtime of the envy-freeness instance including:  upper-bounding the objective function, initializing CPLEX with a feasible starting solution, the combination of both upper-bounding the objective function and initializing CPLEX with a feasible starting solution, and finally tuning various CPLEX parameters.
+
+#  Cloud-Hosted Interactive Notebook
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://bit.ly/3dxaBfS)
+
+Due to the extended nature of the included analysis and accompanying visualizations, the authors suggest to utilize the link found above to access the accompanying cloud-hosted interactive notebook for use while reading.  This notebook contains interactive plots as well as variables for the different results datasets.  Please note that this service typically takes a couple of minutes to initialize.  
 
 ---
 ## Explanation of Repository Contents
@@ -52,7 +53,6 @@ https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/mas
 │           ├── upper_bound_start_soln_results.txt
 │           └── upper_bound_tuned_results.txt
 ├── environment.yml
-├── file_tree.txt
 ├── report_nb.ipynb
 ├── src
 │   ├── commands
@@ -88,6 +88,16 @@ https://mybinder.org/v2/gh/wyattowalsh/explorations-in-envy-free-allocations/mas
     ├── scatterplots
     └── surfaceplots
 ```
+## Summary of file tree above:
+|   Name   |   Type   |                                                          Description                                                         |
+|:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
+| data      | Folder | This folder is split into 'input' and 'output' and contain the input data files, in the form of a .dat and the output results from the CPLEX solver, in the form of .txt files.  |
+| environment.yml   | File       | This is a anaconda virtual envirronment replication file that ensures consistent versions of software packages.|
+| report_np.ipynb  | File       | This is a Jupyter Python Notebook that contains the results of solving the generated examples. This notebook also contains visualizations, both two-dimensional and three-dimensional, that should help to provide a better understanding of the results.          |
+| src| Folder     | Contains all source code for solving the examples. This folder contains the commands used to perform actions like normaization, a file to create all of the dynthetic data, and then a '.mod' and '.run' ampl file for each subtype of problem. Assuming that the necessary data files have been generated, the '.run' files for each sub-question can be run from the console of AMPL, and all of the examples will be solved, and subsequent output files will be created within the data folder.|
+| visualizations| Folder| A collection of the different visualizations created in the Jupyter Notebook in the form of .png files. These visualizations are sorted by type and can be found in the sub-folders. |
+
+
 ## Useful Links and Tools
 |   Resource Type   |   Resource   |                                                          Link/Notes                                                         |
 |:-----------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------:|
