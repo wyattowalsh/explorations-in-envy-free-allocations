@@ -12,12 +12,12 @@ option cplex_options 'timelimit=300';
 
 # declare set for which files are going to be read and parameters to hold variables of interest
 # set F = 1 .. 400;
-set CASH := 0 .. 0.02 by 0.00001;
-# value of goods is between 0 & 1. Their value is 10000 multiplied by this proportion
+set CASH := 0 .. 1000  by 0.01;
+# value of goods is between 0 & 1. Their value is 1000 multiplied by this proportion
 # thus cash should be the number of items * 0.5 (E[]) 
 model './src/pEFS.mod';
 param pVSums{P};
-data "./data/input/larger.dat";
+data "./data/input/larger_non_normalized.dat";
 print 'solveResult, pEnvyFree, solveElapsedTime, totalSolveElaspsedTime, ' &
 '|P|, |I|, cash' >  ('./data/output/pEFS/results_larger.txt');
 close ('./data/output/pEFS/results_larger.txt');
@@ -28,8 +28,8 @@ for {c in CASH} {
 	solve;
 	print solve_result_num & ', ' &  round(z,4) &  ', ' & round(_solve_elapsed_time,4) &
 			', ' & round(_total_solve_elapsed_time,4) & ', ' & (card(P)) & ', ' & (card(I)) &
-			', ' & round(cash * 1000,4) >> ('./data/output/pEFS/results_larger.txt');
-		
+			', ' & round(cash,4) >> ('./data/output/pEFS/results_larger.txt');
+	if z=0 then break;
 	close ('./data/output/pEFS/results_larger.txt');
 }
 # data './data/input/simple.dat';
