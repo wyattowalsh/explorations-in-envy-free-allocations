@@ -2,7 +2,14 @@
 
 The goal of this project is to find optimally fair allocations of divisible and non-divisible goods for a group of people under three different definitions of fairness under envy-freeness with certain assumptions. Mixed integer linear programming (MILP) formulations are created in AMPL and solved using CPLEX resulting in the generation of datasets consisting of the minimal approximate envy value and solver elapsed time for different combinations of number of people and number of goods. Interactive 3D visualizations of this dataset are created in Python and analysis of results is conducted. The project consists of two main outcomes, `paper.pdf`, which is a full, compiled research paper, and `report_nb.ipynb` which hosts the results datasets and visualizations. Click below to load the project notebook in your browser using the *Binder* service, or continue reading for more information on the project.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://bit.ly/3dxaBfS)
+<p align="center">
+  Interact with the project notebook in your web browser using the <i>Binder</i> service  
+<a target="_blank" rel="noopener noreferrer" href=https://bit.ly/3dxaBfS> <img src=https://mybinder.org/badge_logo.svg></a>
+ <br><br>
+</p>
+
+![](notebook_preview.gif)
+---
 
 ## Contents:
  - [Explanation of Repository Contents](#explanation-of-repository-contents)
