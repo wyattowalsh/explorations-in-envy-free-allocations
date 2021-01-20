@@ -9,6 +9,7 @@ The goal of this project is to find optimally fair allocations of divisible and 
 </p>
 
 ![](notebook_preview.gif)
+
 ---
 
 ## Contents:
