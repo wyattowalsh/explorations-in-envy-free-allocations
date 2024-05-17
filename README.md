@@ -1,4 +1,7 @@
-# Mixed Integer Linear Programming for Fair Division Problems
+<div align='center'>
+  <h1><code>Explorations in Envy-Free Allocations:</code><br/>Mixed Integer Linear Programming for Fair Division Problems</h1>
+  <hr/>
+</div>
 
 The goal of this project is to find optimally fair allocations of divisible and non-divisible goods for a group of people under three different definitions of fairness under envy-freeness with certain assumptions. Mixed integer linear programming (MILP) formulations are created in AMPL and solved using CPLEX resulting in the generation of datasets consisting of the minimal approximate envy value and solver elapsed time for different combinations of number of people and number of goods. Interactive 3D visualizations of this dataset are created in Python and analysis of results is conducted. The project consists of two main outcomes, `paper.pdf`, which is a full, compiled research paper, and `report_nb.ipynb` which hosts the results datasets and visualizations. Click below to load the project notebook in your browser using the *Binder* service, or continue reading for more information on the project.
 
